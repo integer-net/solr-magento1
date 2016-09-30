@@ -1,0 +1,45 @@
+<?php
+/**
+ * integer_net Magento Module
+ *
+ * @category   IntegerNet
+ * @package    IntegerNet_Solr
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @author     Andreas von Studnitz <avs@integer-net.de>
+ */
+?>
+
+<?php
+/**
+ * Product list template for Solr search result items (grid mode)
+ * Taken from app/design/frontend/base/default/template/catalog/product/list.phtml
+ *
+ * @see IntegerNet_Solr_Block_Indexer_Item
+ * @var $this IntegerNet_Solr_Block_Indexer_Item
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+?>
+<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+<?php if($_product->getRatingSummary()): ?>
+    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+<?php endif; ?>
+<?php echo $this->getPriceHtml($_product, true) ?>
+<div class="actions">
+    <?php if($_product->isSaleable()): ?>
+        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+    <?php else: ?>
+        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+    <?php endif; ?>
+    <ul class="add-to-links">
+        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+        <?php endif; ?>
+        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+        <?php endif; ?>
+    </ul>
+</div>

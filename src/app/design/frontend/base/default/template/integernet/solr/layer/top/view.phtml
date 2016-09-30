@@ -1,0 +1,67 @@
+<?php
+/**
+ * integer_net Magento Module
+ *
+ * @category   IntegerNet
+ * @package    IntegerNet_Solr
+ * @copyright  Copyright (c) 2016 integer_net GmbH (http://www.integer-net.de/)
+ * @author     Andreas von Studnitz <avs@integer-net.de>
+ */
+?>
+
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+?>
+<?php if($this->canShowBlock()): ?>
+<div class="block block-filter-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+    </div>
+    <div class="block-content toggle-content">
+        <?php if ($this->getLayer()->getState()->getFilters()): ?>
+            <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+        <?php endif; ?>
+        <?php if($this->canShowOptions()): ?>
+            <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Filter') ?></p>
+
+            <div class="filter">
+                <?php $_filters = $this->getFilters() ?>
+                <?php foreach ($_filters as $_filter): ?>
+                    <?php if($_filter->getItemsCount()): ?>
+                        <dl class="filter-item">
+                            <dt class="filter-title"><?php echo $this->__($_filter->getName()) ?></dt>
+                            <dd class="filter-content">
+                                <div class="filter-list">
+                                    <?php echo $_filter->getHtml() ?>
+                                </div>
+                            </dd>
+                        </dl>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+
+            <script>
+                (function(){
+                    var filters = $$('.filter-title');
+                    filters.each(function(filter){
+                        filter.on('click', function(event){
+                            var item = filter.up('.filter-item');
+                            var sibs = item.siblings();
+                            sibs.each(function(element){
+                                element.removeClassName('filter-item--active');
+                            });
+                            filter.up('.filter-item').toggleClassName('filter-item--active');
+                        })
+                    })
+                })()
+            </script>
+        <?php endif; ?>
+        <?php echo $this->getStateHtml() ?>
+    </div>
+    <?php echo $this->getChildHtml('solr.loader') ?>
+</div>
+<?php endif; ?>

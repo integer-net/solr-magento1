@@ -1,0 +1,85 @@
+<?php
+/**
+ * integer_net Magento Module
+ *
+ * @category   IntegerNet
+ * @package    IntegerNet_Solr
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @author     Andreas von Studnitz <avs@integer-net.de>
+ */
+?>
+
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+<?php
+$_productCollection=$this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+?>
+<?php if(!$_productCollection->count()): ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+    <div class="category-products">
+        <?php echo $this->getToolbarHtml() ?>
+        <?php // List mode ?>
+        <?php if($this->getMode()!='grid'): ?>
+            <?php $_iterator = 0; ?>
+            <ol class="products-list" id="products-list">
+                <?php foreach ($_productCollection as $_product): ?>
+                    <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+                        <?php echo $this
+                            ->getChild('item')
+                            ->setProduct($_product)
+                            ->setListType('list')
+                            ->toHtml() ?>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+            <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+        <?php else: ?>
+
+        <?php // Grid Mode ?>
+
+        <?php $_collectionSize = $_productCollection->count() ?>
+        <?php $_columnCount = $this->getColumnCount(); ?>
+            <ul class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col">
+                <?php $i=0; foreach ($_productCollection as $_product): ?>
+                    <?php /*if ($i++%$_columnCount==0): ?>
+            <?php endif*/ ?>
+                    <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                        <?php echo $this
+                            ->getChild('item')
+                            ->setProduct($_product)
+                            ->setListType('grid')
+                            ->toHtml() ?>
+                    </li>
+                    <?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+            <?php endif*/ ?>
+                <?php endforeach ?>
+            </ul>
+            <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+        <?php endif; ?>
+
+        <div class="toolbar-bottom">
+            <?php echo $this->getToolbarHtml() ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php
+//set product collection on after blocks
+$child = $this->getChild('after');
+if (is_object($child)) {
+    $_afterChildren = $child->getSortedChildren();
+    foreach($_afterChildren as $_afterChildName) {
+        $_afterChild = $child->getChild($_afterChildName);
+        $_afterChild->setProductCollection($_productCollection);
+        echo $_afterChild->toHtml();
+    }
+}

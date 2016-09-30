@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- initial phpunit configuration file, that you can modify for your project needs -->
+<phpunit cacheTokens="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         strict="false"
+         verbose="false"
+         bootstrap="test/bootstrap.php">
+    <testsuite name="unit">
+        <directory suffix=".php">test/IntegerNet/Solr</directory>
+    </testsuite>
+   <filter>
+       <whitelist>
+           <directory suffix=".php">src/lib/IntegerNet_Solr/Solr</directory>
+       </whitelist>
+   </filter>
+</phpunit>
+

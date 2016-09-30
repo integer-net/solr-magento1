@@ -1,0 +1,22 @@
+registry:
+  registry:
+    - current_category
+    - current_entity_key
+  helper:
+    - catalogsearch
+    - integernet_solr/factory
+    - integernet_solr/log
+  singleton:
+    - catalog/layer
+    - core/session
+    - customer/session
+    - catalog/session
+    - customer/session
+    - reports/session
+    - integernet_solr/observer
+    - integernet_solr/bridge_attributeRepository
+    - integernet_solr/bridge_categoryRepository
+    - integernet_solr/result
+    - integernet_solr/result_collection
+  resource:
+    - catalog/category_indexer_product

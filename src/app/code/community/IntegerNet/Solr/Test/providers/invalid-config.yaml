@@ -1,0 +1,15 @@
+same-core-swapped-not-in-all-stores:
+  config:
+    stores/default/integernet_solr/general/is_active: 1
+    stores/default/integernet_solr/indexing/swap_cores: 1
+    stores/default/integernet_solr/indexing/swap_core: core1
+    stores/store2/integernet_solr/general/is_active: 1
+    stores/store2/integernet_solr/indexing/swap_cores: 0
+same-core-swapped-with-different-cores:
+  config:
+    stores/default/integernet_solr/general/is_active: 1
+    stores/default/integernet_solr/indexing/swap_cores: 1
+    stores/default/integernet_solr/indexing/swap_core: core1
+    stores/store2/integernet_solr/general/is_active: 1
+    stores/store2/integernet_solr/indexing/swap_cores: 1
+    stores/store2/integernet_solr/indexing/swap_core: core2

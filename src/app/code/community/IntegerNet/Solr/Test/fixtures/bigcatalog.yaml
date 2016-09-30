@@ -1,0 +1,547 @@
+eav:
+  catalog_category:
+    - entity_id: 1 # Root category
+      attribute_set_id: 0
+      path: 1
+      name: Root
+      level: 0
+      children_count: 1
+      is_active: 1
+    - entity_id: 2 # Store category
+      parent_id: 1
+      path: 1/2
+      name: Store
+      level: 1
+      children_count: 1
+      is_active: 1
+    - entity_id: 3 # Clones category
+      attribute_set_id: 3
+      parent_id: 2
+      path: 1/2/3
+      name: Clones
+      level: 2
+      children_count: 0
+      is_active: 1
+  catalog_product:
+    - entity_id: 3001
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0001
+      name: "Clone 1"
+      short_description: "Clone 1"
+      description: "Clone 1"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3002
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0002
+      name: "Clone 2"
+      short_description: "Clone 2"
+      description: "Clone 2"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3003
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0003
+      name: "Clone 3"
+      short_description: "Clone 3"
+      description: "Clone 3"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3004
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0004
+      name: "Clone 4"
+      short_description: "Clone 4"
+      description: "Clone 4"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3005
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0005
+      name: "Clone 5"
+      short_description: "Clone 5"
+      description: "Clone 5"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3006
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0006
+      name: "Clone 6"
+      short_description: "Clone 6"
+      description: "Clone 6"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3007
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0007
+      name: "Clone 7"
+      short_description: "Clone 7"
+      description: "Clone 7"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3008
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0008
+      name: "Clone 8"
+      short_description: "Clone 8"
+      description: "Clone 8"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3009
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0009
+      name: "Clone 9"
+      short_description: "Clone 9"
+      description: "Clone 9"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3010
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0010
+      name: "Clone 10"
+      short_description: "Clone 10"
+      description: "Clone 10"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3011
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0011
+      name: "Clone 11"
+      short_description: "Clone 11"
+      description: "Clone 11"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3012
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0012
+      name: "Clone 12"
+      short_description: "Clone 12"
+      description: "Clone 12"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3013
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0013
+      name: "Clone 13"
+      short_description: "Clone 13"
+      description: "Clone 13"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3014
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0014
+      name: "Clone 14"
+      short_description: "Clone 14"
+      description: "Clone 14"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3015
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0015
+      name: "Clone 15"
+      short_description: "Clone 15"
+      description: "Clone 15"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3016
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0016
+      name: "Clone 16"
+      short_description: "Clone 16"
+      description: "Clone 16"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3017
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0017
+      name: "Clone 17"
+      short_description: "Clone 17"
+      description: "Clone 17"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3018
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0018
+      name: "Clone 18"
+      short_description: "Clone 18"
+      description: "Clone 18"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3019
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0019
+      name: "Clone 19"
+      short_description: "Clone 19"
+      description: "Clone 19"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3020
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0020
+      name: "Clone 20"
+      short_description: "Clone 20"
+      description: "Clone 20"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3021
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0021
+      name: "Clone 21"
+      short_description: "Clone 21"
+      description: "Clone 21"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3022
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0022
+      name: "Clone 22"
+      short_description: "Clone 22"
+      description: "Clone 22"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3023
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0023
+      name: "Clone 23"
+      short_description: "Clone 23"
+      description: "Clone 23"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3024
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0024
+      name: "Clone 24"
+      short_description: "Clone 24"
+      description: "Clone 24"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3025
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0025
+      name: "Clone 25"
+      short_description: "Clone 25"
+      description: "Clone 25"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3026
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0026
+      name: "Clone 26"
+      short_description: "Clone 26"
+      description: "Clone 26"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3027
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0027
+      name: "Clone 27"
+      short_description: "Clone 27"
+      description: "Clone 27"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3028
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0028
+      name: "Clone 28"
+      short_description: "Clone 28"
+      description: "Clone 28"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 3029
+      attribute_set_id: 4
+      type_id: simple
+      sku: clone-0029
+      name: "Clone 29"
+      short_description: "Clone 29"
+      description: "Clone 29"
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 3 # Clones
+      price: 1.00
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search

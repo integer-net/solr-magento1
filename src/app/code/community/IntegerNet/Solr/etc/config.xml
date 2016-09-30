@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <IntegerNet_Solr>
+            <version>1.6.0.5</version>
+        </IntegerNet_Solr>
+    </modules>
+    <global>
+        <models>
+            <integernet_solr>
+                <class>IntegerNet_Solr_Model</class>
+                <resourceModel>integernet_solr_resource</resourceModel>
+            </integernet_solr>
+
+            <integernet_solr_resource>
+                <class>IntegerNet_Solr_Model_Resource</class>
+            </integernet_solr_resource>
+
+            <catalog_resource>
+                <rewrite>
+                    <layer_filter_attribute>IntegerNet_Solr_Model_Resource_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                    <layer_filter_price>IntegerNet_Solr_Model_Resource_Catalog_Layer_Filter_Price</layer_filter_price>
+                </rewrite>
+            </catalog_resource>
+
+            <catalogsearch>
+                <rewrite>
+                    <layer>IntegerNet_Solr_Model_CatalogSearch_Layer</layer>
+                    <layer_filter_attribute>IntegerNet_Solr_Model_CatalogSearch_Layer_Filter_Attribute</layer_filter_attribute>
+                </rewrite>
+            </catalogsearch>
+
+            <catalog>
+                <rewrite>
+                    <layer>IntegerNet_Solr_Model_Catalog_Layer</layer>
+                    <layer_filter_price>IntegerNet_Solr_Model_Catalog_Layer_Filter_Price</layer_filter_price>
+                    <layer_filter_attribute>IntegerNet_Solr_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                    <layer_filter_category>IntegerNet_Solr_Model_Catalog_Layer_Filter_Category</layer_filter_category>
+                </rewrite>
+            </catalog>
+        </models>
+
+        <blocks>
+            <integernet_solr>
+                <class>IntegerNet_Solr_Block</class>
+            </integernet_solr>
+
+            <mana_filters>
+                <rewrite>
+                    <search>IntegerNet_Solr_Block_Mana_Filters_Search</search>
+                </rewrite>
+            </mana_filters>
+        </blocks>
+
+        <helpers>
+            <integernet_solr>
+                <class>IntegerNet_Solr_Helper</class>
+            </integernet_solr>
+            <catalogsearch>
+                <rewrite>
+                    <data>IntegerNet_Solr_Helper_CatalogSearch_Data</data>
+                </rewrite>
+            </catalogsearch>
+        </helpers>
+
+        <index>
+            <indexer>
+                <integernet_solr>
+                    <model>integernet_solr/indexer</model>
+                </integernet_solr>
+            </indexer>
+        </index>
+
+        <events>
+            <catalog_block_product_list_collection>
+                <observers>
+                    <review>
+                        <type>disabled</type>
+                        <class>review/observer</class>
+                        <method>catalogBlockProductCollectionBeforeToHtml</method>
+                    </review>
+                </observers>
+            </catalog_block_product_list_collection>
+
+            <catalog_product_delete_after>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>catalogProductDeleteAfter</method>
+                    </integernet_solr>
+                </observers>
+            </catalog_product_delete_after>
+
+            <controller_front_init_before>
+                <observers>
+                    <integernet_solr>
+                        <type>object</type>
+                        <class>IntegerNet_Solr_Helper_Autoloader</class>
+                        <method>createAndRegister</method>
+                    </integernet_solr>
+                </observers>
+            </controller_front_init_before>
+
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>coreBlockAbstractToHtmlBefore</method>
+                    </integernet_solr>
+                </observers>
+            </core_block_abstract_to_html_before>
+
+            <fastsimpleimport_reindex_products_after>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>afterFastSimpleImportReindex</method>
+                    </integernet_solr>
+                </observers>
+            </fastsimpleimport_reindex_products_after>
+        </events>
+
+        <resources>
+            <integernet_solr_setup>
+                <setup>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                    <module>IntegerNet_Solr</module>
+                </setup>
+            </integernet_solr_setup>
+        </resources>
+
+        <template>
+            <email>
+                <integernet_solr_connection_check_email_template translate="label" module="integernet_solr">
+                    <label>Solr Connection Check Notification</label>
+                    <file>integernet_solr/connection_check.txt</file>
+                    <type>text</type>
+                </integernet_solr_connection_check_email_template>
+            </email>
+        </template>
+    </global>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <integernet_solr>
+                    <files>
+                        <default>IntegerNet_Solr.csv</default>
+                    </files>
+                </integernet_solr>
+            </modules>
+        </translate>
+
+        <layout>
+            <updates>
+                <integernet_solr>
+                    <file>integernet/solr.xml</file>
+                </integernet_solr>
+            </updates>
+        </layout>
+
+        <events>
+            <adminhtml_catalog_product_attribute_edit_prepare_form>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>adminhtmlCatalogProductAttributeEditPrepareForm</method>
+                    </integernet_solr>
+                </observers>
+            </adminhtml_catalog_product_attribute_edit_prepare_form>
+        </events>
+    </adminhtml>
+
+    <frontend>
+        <translate>
+            <modules>
+                <integernet_solr>
+                    <files>
+                        <default>IntegerNet_Solr.csv</default>
+                    </files>
+                </integernet_solr>
+            </modules>
+        </translate>
+
+        <layout>
+            <updates>
+                <integernet_solr>
+                    <file>integernet/solr.xml</file>
+                </integernet_solr>
+                <integernet_solr_filter>
+                    <file>integernet/solr/filter.xml</file>
+                </integernet_solr_filter>
+            </updates>
+        </layout>
+
+        <routers>
+            <integernet_solr>
+                <use>standard</use>
+                <args>
+                    <module>IntegerNet_Solr_Frontend</module>
+                    <frontName>solr</frontName>
+                </args>
+            </integernet_solr>
+        </routers>
+
+        <events>
+            <controller_action_predispatch_catalogsearch_result_index>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>controllerActionPredispatchCatalogsearchResultIndex</method>
+                    </integernet_solr>
+                </observers>
+            </controller_action_predispatch_catalogsearch_result_index>
+            <catalog_block_product_list_collection>
+                <observers>
+                    <review>
+                        <type>disabled</type>
+                    </review>
+                </observers>
+            </catalog_block_product_list_collection>
+        </events>
+    </frontend>
+
+    <default>
+        <integernet_solr>
+            <general>
+                <is_active>0</is_active>
+                <log>0</log>
+            </general>
+            <server>
+                <http_method>curl</http_method>
+            </server>
+            <indexing>
+                <pagesize>1000</pagesize>
+                <delete_documents_before_indexing>1</delete_documents_before_indexing>
+            </indexing>
+            <fuzzy>
+                <is_active>1</is_active>
+                <sensitivity>0.75</sensitivity>
+                <minimum_results>0</minimum_results>
+            </fuzzy>
+            <results>
+                <use_html_from_solr>0</use_html_from_solr>
+                <search_operator>AND</search_operator>
+                <filter_position>1</filter_position>
+                <show_category_filter>1</show_category_filter>
+                <priority_categories>2</priority_categories>
+                <max_number_filter_options>0</max_number_filter_options>
+                <price_step_size>10</price_step_size>
+                <max_price>200</max_price>
+                <use_custom_price_intervals>0</use_custom_price_intervals>
+                <custom_price_intervals>10,20,50,100,200,300,400,500</custom_price_intervals>
+                <product_attributes_redirect>name,sku</product_attributes_redirect>
+                <category_attributes_redirect>name</category_attributes_redirect>
+            </results>
+            <seo>
+                <hide_from_robots>search_results_all,search_results_filtered,categories_filtered</hide_from_robots>
+            </seo>
+            <dev>
+                <register_autoloader>1</register_autoloader>
+                <autoloader_basepath>lib/IntegerNet_Solr</autoloader_basepath>
+            </dev>
+        </integernet_solr>
+    </default>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <IntegerNet_Solr/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addCss">
+                <script>integernet/solr/style.css</script>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

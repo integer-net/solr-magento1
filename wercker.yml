@@ -1,0 +1,45 @@
+box: php:5.5
+services:
+  - id: mysql:5.6
+    env:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  - id: integernet/solr_ci:1.6.0
+build:
+  steps:
+    - install-packages:
+        packages: git zip mysql-client libmcrypt-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev netcat-openbsd
+    - script:
+        name: install php extensions
+        code: docker-php-ext-install -j$(nproc) pdo_mysql mcrypt gd pcntl
+    - script:
+        name: "Wait for MySQL connection"
+        code: |
+          while ! nc -q 1 $MYSQL_PORT_3306_TCP_ADDR $MYSQL_PORT_3306_TCP_PORT </dev/null; do echo -n . && sleep 3; done
+    - add-ssh-key:
+        keyname: GITHUB_DEPLOY
+        host: github.com
+    - add-to-known_hosts:
+        hostname: github.com
+        fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+    - script:
+        name: set up and run tests
+        code: |
+          set -e
+          set -x
+          echo memory_limit=-1 >> /usr/local/etc/php/php.ini
+          export WORKSPACE=`pwd`
+          export MAGENTO_VERSION=magento-mirror-1.9.2.2
+          export MAGENTO_DB_HOST=$MYSQL_PORT_3306_TCP_ADDR
+          export MAGENTO_DB_PORT=$MYSQL_PORT_3306_TCP_PORT
+          export MAGENTO_DB_USER=root
+          export MAGENTO_DB_PASS=$MYSQL_ENV_MYSQL_ROOT_PASSWORD
+          export MAGENTO_DB_NAME=magento
+          export MAGENTO_DB_ALLOWSAME=0
+          export MAGENTO_INSTALL_SAMPLE_DATA=no
+          export ECOMDEV_PHPUNIT_CUSTOM_BOOTSTRAP=IntegerNet/Solr/Test/bootstrap.php
+          sed -i -e "s/8983/$SOLR_CI_PORT_8983_TCP_PORT/g" src/app/code/community/IntegerNet/Solr/Test/fixtures/config.yaml
+          sed -i -e "s/localhost/$SOLR_CI_PORT_8983_TCP_ADDR/g" src/app/code/community/IntegerNet/Solr/Test/fixtures/config.yaml
+          curl -sSL https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | php -- --quiet
+          php composer.phar require aoepeople/composer-installers:*
+          php composer.phar install --dev --no-interaction
+          curl -sSL https://raw.githubusercontent.com/schmengler/MageTestStand/master/setup.sh | bash

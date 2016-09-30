@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action method="addCss" ifconfig="integernet_solr/general/is_active">
+                <stylesheet>integernet/solr/css/filter.css</stylesheet>
+            </action>
+            <action method="addCss" ifconfig="integernet_solr/general/is_active">
+                <stylesheet>integernet/solr/css/loader.css</stylesheet>
+            </action>
+        </reference>
+    </default>
+
+    <catalogsearch_result_index>
+        <remove name="amshopby.navleft" />
+        <remove name="amshopby.navtop" />
+        <remove name="amshopby.bottom" />
+        <remove name="mana.catalogsearch.leftnav" />
+        <reference name="left_first">
+            <action ifconfig="integernet_solr/general/is_active" method="unsetChild">
+                <name>catalogsearch.leftnav</name>
+            </action>
+            <action ifconfig="integernet_solr/general/is_active" method="unsetChild">
+                <name>enterprisesearch.leftnav</name>
+            </action>
+            <block ifconfig="integernet_solr/general/is_active" type="integernet_solr/result_layer_view"
+                   name="catalogsearch.solr.leftnav" after="currency" template="catalog/layer/view.phtml">
+                <action method="setModuleName">
+                    <name>Mage_CatalogSearch</name>
+                </action>
+                <block type="integernet_solr/result_layer_state" name="catalogsearch.solr.layer.state" as="state"
+                       template="catalog/layer/state.phtml"/>
+                <block type="integernet_solr/result_layer_filter" name="catalogsearchsolr.solr.layer.filter" as="filter"
+                       template="catalog/layer/filter.phtml"/>
+                <block type="integernet_solr/result_layer_renderers" name="catalogsearch.solr.layer.renderers"
+                       as="state_renderers"/>
+            </block>
+        </reference>
+
+        <reference name="content">
+            <block ifconfig="integernet_solr/general/is_active" type="integernet_solr/result_layer_view"
+                   name="catalogsearch.solr.topnav" template="integernet/solr/layer/top/view.phtml"
+                   before="search.result">
+                <action method="setModuleName">
+                    <name>Mage_CatalogSearch</name>
+                </action>
+                <block type="integernet_solr/result_layer_state" name="catalogsearch.solr.topnav.layer.state" as="state"
+                       template="integernet/solr/layer/top/state.phtml"/>
+                <block type="integernet_solr/result_layer_filter" name="catalogsearch.solr.topnav.layer.filter"
+                       as="filter" template="integernet/solr/layer/top/filter.phtml"/>
+                <block type="integernet_solr/result_layer_renderers" name="catalogsearch.solr.topnav.layer.renderers"
+                       as="state_renderers"/>
+            </block>
+            <block type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader" after="-"/>
+        </reference>
+    </catalogsearch_result_index>
+
+    <catalog_category_layered>
+        <reference name="left_first">
+            <action ifconfig="integernet_solr/category/is_active" method="unsetChild">
+                <name>catalog.leftnav</name>
+            </action>
+            <action ifconfig="integernet_solr/category/is_active" method="unsetChild">
+                <name>enterprisecatalog.leftnav</name>
+            </action>
+            <block ifconfig="integernet_solr/category/is_active" type="integernet_solr/result_layer_view"
+                   name="catalog.solr.leftnav" after="currency" template="catalog/layer/view.phtml">
+                <action method="setModuleName">
+                    <name>Mage_Catalog</name>
+                </action>
+                <block type="integernet_solr/result_layer_state" name="catalog.solr.layer.state" as="state"
+                       template="catalog/layer/state.phtml"/>
+                <block type="integernet_solr/result_layer_filter" name="catalog.solr.layer.filter" as="filter"
+                       template="catalog/layer/filter.phtml"/>
+                <block type="integernet_solr/result_layer_renderers" name="catalog.solr.layer.renderers"
+                       as="state_renderers"/>
+            </block>
+        </reference>
+
+        <reference name="content">
+            <block ifconfig="integernet_solr/category/is_active" type="integernet_solr/result_layer_view"
+                   name="catalog.solr.topnav" template="integernet/solr/layer/top/view.phtml"
+                   before="category.products">
+                <action method="setModuleName">
+                    <name>Mage_Catalog</name>
+                </action>
+                <block type="integernet_solr/result_layer_state" name="catalog.solr.topnav.layer.state" as="state"
+                       template="integernet/solr/layer/top/state.phtml"/>
+                <block type="integernet_solr/result_layer_filter" name="catalog.solr.topnav.layer.filter" as="filter"
+                       template="integernet/solr/layer/top/filter.phtml"/>
+                <block type="integernet_solr/result_layer_renderers" name="catalog.solr.topnav.layer.renderers"
+                       as="state_renderers"/>
+            </block>
+            <block type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader" after="-"/>
+        </reference>
+    </catalog_category_layered>
+</layout>

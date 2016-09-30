@@ -1,0 +1,201 @@
+$c-white:         #ffffff
+$c-grey:          #f4f4f4
+$c-grey--dark:    #cccccc
+$c-anthracite:    #888888
+$c-blue:          #3399cc
+$bp-mobile:       480px
+$bp-tablet:       768px
+$bp-desktop:      960px
+$grid-columns-mobile:    2
+$grid-columns-tablet:    3
+$grid-columns-desktop:   4
+$grid-gutter:     10px
+
+
+.triangle-up
+  width: 0
+  height: 0
+  border-left: 3px solid transparent
+  border-right: 3px solid transparent
+  border-bottom: 6px solid $c-grey--dark
+
+// Hide default input fields
+
+.solr-checkbox
+  display: none
+
+// Custom Checkbox
+
+.crossbox
+  position: relative
+  display: inline-block
+  float: left
+  margin-top: 2px
+
+  &:before
+    position: relative
+    content: ''
+    display: block
+    float: left
+    width: 15px
+    height: 15px
+    border: 1px solid $c-grey--dark
+    background-color: white
+    margin-right: 10px
+
+.crossbox--checked
+  &:before
+    background-color: $c-blue
+    border-color: $c-blue
+
+  &:after
+    position: absolute
+    top: 0px
+    left: 5px
+    content: 'x'
+    width: 13px
+    height: 13px
+    font-size: 13px
+    line-height: 13px
+    font-weight: bold
+    color: $c-white
+
+// Filter
+
+.filter
+  position: relative
+  width: 100%
+  margin-bottom: 20px
+  &:after
+    content: ''
+    position: relative
+    display: block
+    clear: both
+
+.filter-item
+  position: relative
+  float: left
+  height: 35px
+  margin:
+    right: 10px
+    bottom: 10px
+  background-color: $c-grey
+  cursor: pointer
+  @media screen and (max-width: #{$bp-mobile - 1})
+    width: calc(1/#{$grid-columns-mobile} * (100% - ((#{$grid-columns-mobile} - 1) * #{$grid-gutter})))
+    &:nth-child(#{$grid-columns-mobile}n)
+      margin-right: 0
+  @media screen and (min-width: #{$bp-mobile}) and (max-width: #{$bp-tablet})
+    width: calc(1/#{$grid-columns-tablet} * (100% - ((#{$grid-columns-tablet} - 1) * #{$grid-gutter})))
+    &:nth-child(#{$grid-columns-tablet}n)
+      margin-right: 0
+  @media screen and (min-width: #{$bp-tablet})
+    width: calc(1/#{$grid-columns-desktop} * (100% - ((#{$grid-columns-desktop} - 1) * #{$grid-gutter})))
+    &:nth-child(#{$grid-columns-desktop}n)
+      margin-right: 0
+
+  &:hover
+    background-color: $c-blue
+    .filter-title
+      color: $c-white
+
+  &:before,
+  &:after
+    @extend .triangle-up
+    content: ''
+    position: absolute
+    top: calc(50% - 6px)
+    right: 15px
+
+  &:after
+    top: calc(50% + 3px)
+    transform: rotate(180deg)
+
+
+.filter-title
+  padding: 10px 15px
+  font-size: .8em
+
+.filter-content
+  display: none
+  position: absolute
+  z-index: 200
+  left: 2px
+  top: 25px
+  height: 0
+  transition: all .4s ease
+
+.filter-list
+  overflow: auto
+  height: 100%
+  > ol > li
+    padding: 5px 15px
+    > a
+      padding: 0!important
+
+// Active item state
+
+.filter-item--active
+  background-color: $c-blue
+  color: $c-white
+
+  &:before,
+  &:after
+    border-bottom-color: $c-white
+
+  .filter-content
+    display: block
+    width: 150%
+    height: auto
+    overflow: auto
+    max-height: 200px
+    padding: 10px 0
+    background-color: $c-white
+    box-shadow: 0 2px 5px rgba(#000000,.3)
+
+    li
+      font:
+        size: .8em
+        style: italic
+
+
+// Current items
+
+.currently
+  width: 100%
+  margin-bottom: 20px
+  overflow: hidden
+
+.filter-currently-intro
+  float: left
+  margin:
+    right: 10px
+    left: -10px
+  font:
+    size: .8em
+    weight: bold
+  line-height: 22px
+
+.filter-currently-item
+  float: left
+  margin-right: 10px
+  background-color: $c-grey
+  color: $c-anthracite
+  padding: 2px 5px 0px
+  font-size: .8em
+  height: 24px
+  line-height: 20px
+
+  .btn-remove
+    height: 22px
+    margin-right: -6px
+    border: 0px solid transparent
+    &:hover
+      background-color: $c-grey--dark
+      border-color: transparent
+      text-decoration: none
+    &:after
+      line-height: 22px
+      color: $c-anthracite
+    &:hover:after
+

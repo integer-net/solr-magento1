@@ -1,0 +1,16 @@
+.integernet-solr-tab
+{
+    position: relative;
+}
+
+.integernet-solr-tab span:after
+{
+    top: 0;
+    right: 8px;
+    position: absolute;
+    content: " ";
+    display: block;
+    background: url(integer_net_logo.png) no-repeat;
+    width: 22px;
+    height: 23px;
+}

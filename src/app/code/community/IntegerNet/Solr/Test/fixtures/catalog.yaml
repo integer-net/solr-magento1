@@ -1,0 +1,269 @@
+tables:
+  eav_attribute_label:
+    - attribute_label_id: 22
+      attribute_id: 81
+      store_id: 1
+      value: Manufacturer1
+    - attribute_label_id: 23
+      attribute_id: 81
+      store_id: 2
+      value: Manufacturer2
+  eav_attribute_option:
+    - option_id: 3
+      attribute_id: 92
+      sort_order: 0
+    - option_id: 4
+      attribute_id: 92
+      sort_order: 0
+    - option_id: 5
+      attribute_id: 81
+      sort_order: 0
+    - option_id: 6
+      attribute_id: 81
+      sort_order: 0
+    - option_id: 7
+      attribute_id: 81
+      sort_order: 0
+  eav_attribute_option_value:
+    - value_id: 3
+      option_id: 3
+      store_id: 0
+      value: red
+    - value_id: 4
+      option_id: 4
+      store_id: 0
+      value: blue
+    - value_id: 5
+      option_id: 5
+      value: Herbert George Wells
+    - value_id: 6
+      option_id: 6
+      value: Jack Williamson
+    - value_id: 7
+      option_id: 7
+      value: Viktor Yanukovych
+    - value_id: 8
+      option_id: 5
+      store_id: 2
+      value: Hodor Hodor Hodor
+# Thanks to https://github.com/EcomDev/EcomDev_UrlRewrite
+eav:
+  catalog_category:
+    - entity_id: 1 # Root category
+      attribute_set_id: 0
+      path: 1
+      name: Root
+      level: 0
+      children_count: 3
+      is_active: 1
+      include_in_menu: 0
+    - entity_id: 2 # Books Store category
+      parent_id: 1
+      path: 1/2
+      name: Books Store
+      level: 1
+      children_count: 2
+      is_active: 1
+      include_in_menu: 0
+# Books Store categories
+    - entity_id: 21
+      attribute_set_id: 3
+      parent_id: 2
+      path: 1/2/21
+      name: Comedy
+      url_key: comedy
+      level: 2
+      children_count: 0
+      is_active: 1
+      /stores:
+        store2:
+          name: "Comedy Store"
+          url_key: comedy-store
+    - entity_id: 22
+      attribute_set_id: 3
+      parent_id: 2
+      path: 1/2/22
+      name: Science-Fiction
+      url_key: sci-fi
+      level: 2
+      children_count: 2
+      is_active: 1
+    - entity_id: 221
+      attribute_set_id: 3
+      parent_id: 22
+      path: 1/2/22/221
+      name: Aliens
+      level: 3
+      is_anchor: 1
+      children_count: 1
+      is_active: 1
+    - entity_id: 2211
+      attribute_set_id: 3
+      parent_id: 221
+      path: 1/2/22/221/2211
+      name: Humanoids
+      level: 4
+      children_count: 0
+    - entity_id: 222
+      attribute_set_id: 3
+      parent_id: 22
+      path: 1/2/22/222
+      name: Time Travels
+      level: 3
+      children_count: 0
+      is_active: 1
+    - entity_id: 3 # Extension Store category
+      attribute_set_id: 3
+      parent_id: 1
+      path: 1/3
+      name: Extension Store
+      level: 1
+      children_count: 1
+      is_active: 1
+      include_in_menu: 0
+  catalog_product:
+    - entity_id: 1
+      type_id: simple
+      attribute_set_id: 4
+      name: Product One
+      description: A configurable test product
+      short_description: A configurable test product
+      sku: product1-red
+      weight: 1
+      status: 1 # Enabled
+      visibility: 1 # Not Visible Individually
+      price: 20.00
+      tier_price:
+        - customer_group_id: 0
+          qty: 2
+          value: 18.00
+      tax_class_id: 2 # Taxable Goods
+      stock:
+        qty: 9999
+        is_in_stock: 1
+      category_ids:
+        - 2 # Default Category
+      website_ids:
+        - base
+      color: red
+    - entity_id: 2
+      type_id: simple
+      attribute_set_id: 4
+      name: Product One
+      description: A configurable test product
+      short_description: A configurable test product
+      sku: product1-blue
+      weight: 1
+      status: 1 # Enabled
+      visibility: 1 # Not Visible Individually
+      price: 20.00
+      tax_class_id: 2 # Taxable Goods
+      stock:
+        qty: 9999
+        is_in_stock: 1
+      category_ids:
+        - 2 # Default Category
+      website_ids:
+        - base
+      color: blue
+    - entity_id: 3
+      type_id: configurable
+      attribute_set_id: 4
+      name: Product One
+      description: A configurable test product
+      short_description: A configurable test product
+      sku: product1
+      status: 1 # Enabled
+      visibility: 4 # Visible in Catalog & Search
+      price: 20.00
+      tax_class_id: 2 # Taxable Goods
+      stock:
+        is_in_stock: 1
+      category_ids:
+        - 2 # Default Category
+      website_ids:
+        - base
+      super_attributes:
+        - color
+      configurable_children:
+        - 1
+        - 2
+    - entity_id: 21001 # First part of id is related to base category
+      attribute_set_id: 4
+      type_id: simple
+      sku: yanukovych-0001
+      name: "Viktor Yanukovych: Autobiography"
+      short_description: "Viktor Yanukovych: Autobiography"
+      description: "Viktor Yanukovych: Autobiography"
+      manufacturer: 7
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 21 # Comedy
+      price: 0.99
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 22101
+      attribute_set_id: 4
+      type_id: simple
+      sku: wells-0001
+      name: "Herbert George Wells: The War of the Worlds"
+      short_description: "Herbert George Wells: The War of the Worlds"
+      description: "Herbert George Wells: The War of the Worlds"
+      manufacturer: 5
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 221 # Aliens
+      price: 0.99
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+      /stores:
+        store2:
+          name: "Hodor Hodor Hodor: Hodor of the Hodor"
+    - entity_id: 22111
+      attribute_set_id: 4
+      type_id: simple
+      sku: williamson-0001
+      name: "Jack Williamson: The Humanoids: A Novel"
+      short_description: "Jack Williamson: The Humanoids: A Novel"
+      description: "Jack Williamson: The Humanoids: A Novel"
+      manufacturer: 6
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 2211 # Aliens -> Humanoids
+      price: 11.99
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search
+    - entity_id: 22201
+      attribute_set_id: 4
+      type_id: simple
+      sku: wells-0002
+      name: "Wells, H.G. 1898. The Time Machine"
+      short_description: "Wells, H.G. 1898. The Time Machine"
+      description: "Wells, H.G. 1898. The Time Machine"
+      manufacturer: 5
+      stock:
+        qty: 100000000.00
+        is_in_stock: 1
+      website_ids:
+        - base
+      category_ids:
+        - 222         # Time travels
+      price: 0.99
+      tax_class_id: 2 # Taxable Goods
+      status: 1             # Enabled
+      visibility: 4         # Visible in Catalog & Search

@@ -1,0 +1,41 @@
+<?php /** @var IntegerNet_Solr_Block_Config_Status $this */ ?>
+<ul class="messages">
+
+    <?php if (sizeof($this->getWarningMessages())): ?>
+        <li class="warning-msg">
+            <ul>
+                <?php foreach ($this->getWarningMessages() as $message): ?>
+                    <li><span><?php echo $message ?></span></li>
+                <?php endforeach ?>
+            </ul>
+        </li>
+    <?php endif ?>
+    <?php if (sizeof($this->getSuccessMessages())): ?>
+        <li class="success-msg">
+            <ul>
+                <?php foreach ($this->getSuccessMessages() as $message): ?>
+                    <li><span><?php echo $message ?></span></li>
+                <?php endforeach ?>
+            </ul>
+        </li>
+    <?php endif ?>
+    <?php if (sizeof($this->getErrorMessages())): ?>
+        <li class="error-msg">
+            <ul>
+                <?php foreach ($this->getErrorMessages() as $message): ?>
+                    <li><span><?php echo $message ?></span></li>
+                <?php endforeach ?>
+            </ul>
+        </li>
+    <?php endif ?>
+    <?php if (sizeof($this->getNoticeMessages())): ?>
+        <li class="notice-msg">
+            <ul>
+                <?php foreach ($this->getNoticeMessages() as $message): ?>
+                    <li><span><?php echo $message ?></span></li>
+                <?php endforeach ?>
+            </ul>
+        </li>
+    <?php endif ?>
+
+</ul>

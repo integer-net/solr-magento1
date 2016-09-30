@@ -1,0 +1,27 @@
+scope:
+  store:
+    - store_id: 2
+      website_id: 1
+      group_id: 1
+      code: store2
+      name: Alternate Store View
+      is_active: 1
+config:
+  default/dev/template/allow_symlink: 1
+  default/integernet_solr/general/is_active: 1
+  default/integernet_solr/general/log: 1
+  default/integernet_solr/server/host: localhost
+  default/integernet_solr/server/port: 8983
+  default/integernet_solr/server/path: /solr/
+  default/integernet_solr/server/core: core0
+  default/integernet_solr/server/http_method: curl
+  default/integernet_solr/server/use_https: 0
+  default/integernet_solr/server/use_http_basic_auth: 0
+  default/integernet_solr/connection_check/is_active: 1
+  default/integernet_solr/fuzzy/is_active: 0
+  default/integernet_solr/category/is_active: 1
+  default/integernet_solr/category/is_indexer_active: 0
+  default/integernet_solr/autosuggest/max_number_category_suggestions: 8
+  default/integernet_solr/autosuggest/attribute_filter_suggestions: 'a:1:{s:18:"_1453996401595_595";a:3:{s:14:"attribute_code";s:12:"manufacturer";s:22:"max_number_suggestions";s:1:"2";s:7:"sorting";s:0:"";}}'
+  stores/store2/web/secure/base_url: http://store2.magento.local/
+  stores/store2/web/unsecure/base_url: http://store2.magento.local/

@@ -1,0 +1,35 @@
+<?php
+/**
+ * integer_net Magento Module
+ *
+ * @category   IntegerNet
+ * @package    IntegerNet_Solr
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @author     Andreas von Studnitz <avs@integer-net.de>
+ */
+?>
+
+<?php
+/**
+ * Product list template for Solr search result items (autosuggest box)
+ *
+ * @see IntegerNet_Solr_Block_Indexer_Item
+ * @var $this IntegerNet_Solr_Block_Indexer_Item
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+?>
+<div class="product-image">
+    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+</div>
+<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+<div class="product-name">
+    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>">
+        <?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?>
+    </a>
+</div>
+<div class="product-price">
+    <?php echo $this->getPriceHtml($_product, true) ?>
+</div>

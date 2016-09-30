@@ -1,0 +1,128 @@
+$c-grey:        #C7C2A6
+$c-black:       #444444
+$c-blue:        rgb(0,155,255)
+$c-orange:      #d75f07
+$c-yellow:      #F8E71C
+$c-background:  rgba(255,255,255,.8)
+
+// --------------------------------------------------
+// Fancy Solr Theme
+// Inspired by: http://codepen.io/georgehastings/pen/QyXeNR
+
+.solr-loader,
+.solr-system
+  display: none
+  width: 100%
+  height: 100%
+  position: absolute
+  top: 0
+  background: $c-background
+
+  &.active
+    display: block
+    z-index: 300
+
+.solr-system__notice,
+.solr-loader--modern__notice
+  position: absolute
+  top: 45%
+  left: 0
+  width: 100%
+  text-align: center
+  padding-top: 30px
+  font-size: 8px
+  text-transform: uppercase
+  font-family: 'Helvetica Neue',Verdana, Arial, sans-serif
+  font-weight: bold
+  opacity: 0.6
+  padding-left: 15px
+    
+.solr-system__stars
+  position: relative
+  margin: 0 auto
+  top: 45%
+  left: 50%
+
+.solr-system__star
+  content: ""
+  position: absolute
+  width: 5px
+  height: 5px
+  border-radius: 50%
+
+.solr-system__star--sun
+  background-color: $c-yellow
+  width: 20px
+  height: 20px
+  margin: 0 auto
+
+.solr-system__star--mercury
+  left: -10px
+  top: -10px
+  background-color: $c-grey
+  transform-origin: 20px 20px
+  animation: axis 1.3s linear infinite
+
+.solr-system__star--venus
+  width: 8px
+  height: 8px
+  left: -22px
+  top: -22px
+  background-color: $c-grey
+  transform-origin: 32px 32px
+  animation: axis 1.9s linear infinite
+
+.solr-system__star--earth
+  width: 10px
+  height: 10px
+  left: -36px
+  top: -36px
+  background-color: $c-blue
+  transform-origin: 46px 46px
+  animation: axis 2.5s linear infinite
+
+.solr-system__star--mars
+  left: -45px
+  top: -45px
+  background-color: $c-grey
+  transform-origin: 55px 55px
+  animation: axis 3.5s linear infinite
+
+// --------------------------------------------------
+// Modern/RWD Defaultish Theme
+// Credits: https://github.com/tobiasahlin/SpinKit
+
+.solr-loader--modern__notice
+  color: $c-black
+  margin-top: -5px
+  padding-left: 10px
+  top: 40%
+
+.solr-loader--modern__spinner
+  position: relative
+  top: 40%
+  left: -30px
+  width: 60px
+  height: 60px
+  margin: 0 auto
+  background-color: $c-orange
+  border-radius: 100%
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out
+  animation: sk-scaleout 1.0s infinite ease-in-out
+
+// --------------------------------------------------
+// Animations
+
+@keyframes axis
+  0%
+    transform: rotateZ(0deg) translate3d(0,0,0)
+  100%
+    transform: rotateZ(360deg) translate3d(0,0,0)
+
+@keyframes sk-scaleout 
+  0%
+    transform: scale(0)
+  100%
+    transform: scale(1.0)
+    opacity: 0
+

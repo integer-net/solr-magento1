@@ -1,0 +1,18 @@
+<?php $style = $this->escapeHtml(trim(Mage::getStoreConfig('integernet_solr/solr_theme/loader_style'))); ?>
+<?php if($style == 'solr-system'): ?>
+    <div class="<?php echo $style ?>" id="solr-loader">
+        <div class="solr-system__notice"><?php echo $this->__('Loading...') ?></div>
+        <div class="solr-system__stars">
+            <div class="solr-system__star solr-system__star--sun"></div>
+            <div class="solr-system__star solr-system__star--mercury"></div>
+            <div class="solr-system__star solr-system__star--venus"></div>
+            <div class="solr-system__star solr-system__star--earth"></div>
+            <div class="solr-system__star solr-system__star--mars"></div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="solr-loader solr-loader--<?php echo $style ?>" id="solr-loader">
+        <div class="solr-loader--<?php echo $style ?>__notice"><?php echo $this->__('Loading...') ?></div>
+        <div class="solr-loader--<?php echo $style ?>__spinner"></div>
+    </div>
+<?php endif; ?>

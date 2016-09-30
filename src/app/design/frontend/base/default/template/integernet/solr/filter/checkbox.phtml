@@ -1,0 +1,20 @@
+<?php
+/**
+ * integer_net Magento Module
+ *
+ * @category   IntegerNet
+ * @package    IntegerNet_Solr
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @author     Andreas von Studnitz <avs@integer-net.de>
+ */
+/** @var IntegerNet_Solr_Block_Result_Layer_Checkbox $this */
+?>
+<?php if (!$this->getIsTopNav()): ?>
+<input id="solr_<?php echo $this->getAttributeCode() ?>_<?php echo $this->getOptionId() ?>"
+       type="checkbox"
+       name=""
+       value=""
+       class="solr-checkbox"
+       <?php if ($this->getIsChecked()): ?>checked="checked"<?php endif ?> />
+<span class="crossbox<?php if ($this->getIsChecked()): ?> crossbox--checked<?php endif ?>"></span>
+<?php endif ?>

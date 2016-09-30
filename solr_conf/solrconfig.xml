@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!--
+     For more details about configurations options that may appear in
+     this file, see http://wiki.apache.org/solr/SolrConfigXml.
+-->
+<config>
+    <luceneMatchVersion>LUCENE_42</luceneMatchVersion>
+<!--
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
+
+    <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
+
+    <lib dir="${solr.install.dir:../../../..}/contrib/clustering/lib/" regex=".*\.jar" />
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-clustering-\d.*\.jar" />
+
+    <lib dir="${solr.install.dir:../../../..}/contrib/langid/lib/" regex=".*\.jar" />
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-langid-\d.*\.jar" />
+
+    <lib dir="${solr.install.dir:../../../..}/contrib/velocity/lib" regex=".*\.jar" />
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-velocity-\d.*\.jar" />
+-->
+    <dataDir>${solr.data.dir:}</dataDir>
+
+    <directoryFactory name="DirectoryFactory"
+                      class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+
+    <codecFactory class="solr.SchemaCodecFactory"/>
+
+    <indexConfig>
+        <lockType>${solr.lock.type:native}</lockType>
+    </indexConfig>
+
+    <jmx />
+
+    <updateHandler class="solr.DirectUpdateHandler2">
+        <updateLog>
+            <str name="dir">${solr.ulog.dir:}</str>
+        </updateLog>
+
+        <autoCommit>
+            <maxTime>15000</maxTime>
+            <openSearcher>false</openSearcher>
+        </autoCommit>
+    </updateHandler>
+
+    <query>
+        <maxBooleanClauses>1024</maxBooleanClauses>
+
+        <filterCache class="solr.FastLRUCache"
+                     size="512"
+                     initialSize="512"
+                     autowarmCount="0"/>
+
+        <queryResultCache class="solr.LRUCache"
+                          size="512"
+                          initialSize="512"
+                          autowarmCount="0"/>
+
+        <documentCache class="solr.LRUCache"
+                       size="512"
+                       initialSize="512"
+                       autowarmCount="0"/>
+
+        <enableLazyFieldLoading>true</enableLazyFieldLoading>
+
+        <queryResultWindowSize>20</queryResultWindowSize>
+
+        <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+
+        <listener event="newSearcher" class="solr.QuerySenderListener">
+            <arr name="queries" />
+        </listener>
+
+        <listener event="firstSearcher" class="solr.QuerySenderListener">
+            <arr name="queries">
+                <lst>
+                    <str name="q">static firstSearcher warming in solrconfig.xml</str>
+                </lst>
+            </arr>
+        </listener>
+
+        <useColdSearcher>false</useColdSearcher>
+
+        <maxWarmingSearchers>2</maxWarmingSearchers>
+    </query>
+
+    <requestDispatcher handleSelect="false">
+        <requestParsers enableRemoteStreaming="true"
+                        multipartUploadLimitInKB="2048000"
+                        formdataUploadLimitInKB="2048"
+                        addHttpRequestToContext="false" />
+
+        <httpCaching never304="true" />
+    </requestDispatcher>
+
+    <requestHandler name="/select" class="solr.SearchHandler">
+        <lst name="defaults">
+            <str name="echoParams">explicit</str>
+            <int name="rows">10</int>
+            <str name="df">text</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/query" class="solr.SearchHandler">
+        <lst name="defaults">
+            <str name="echoParams">explicit</str>
+            <str name="wt">json</str>
+            <str name="indent">true</str>
+            <str name="df">text</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/get" class="solr.RealTimeGetHandler">
+        <lst name="defaults">
+            <str name="omitHeader">true</str>
+            <str name="wt">json</str>
+            <str name="indent">true</str>
+        </lst>
+    </requestHandler>
+
+    <initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell,/browse">
+        <lst name="defaults">
+            <str name="df">text</str>
+        </lst>
+    </initParams>
+
+    <requestHandler name="/update" class="solr.UpdateRequestHandler" />
+
+    <requestHandler name="/update/extract"
+                    startup="lazy"
+                    class="solr.extraction.ExtractingRequestHandler">
+        <lst name="defaults">
+            <str name="lowernames">true</str>
+            <str name="uprefix">ignored_</str>
+
+            <!-- capture link hrefs but ignore div attributes -->
+            <str name="captureAttr">true</str>
+            <str name="fmap.a">links</str>
+            <str name="fmap.div">ignored_</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/analysis/field"
+                    startup="lazy"
+                    class="solr.FieldAnalysisRequestHandler" />
+
+    <requestHandler name="/analysis/document"
+                    class="solr.DocumentAnalysisRequestHandler"
+                    startup="lazy" />
+
+    <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+        <lst name="invariants">
+            <str name="q">solrpingquery</str>
+        </lst>
+        <lst name="defaults">
+            <str name="echoParams">all</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/debug/dump" class="solr.DumpRequestHandler" >
+        <lst name="defaults">
+            <str name="echoParams">explicit</str>
+            <str name="echoHandler">true</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/replication" class="solr.ReplicationHandler" />
+
+    <requestHandler name="/suggest" class="org.apache.solr.handler.component.SearchHandler">
+        <lst name="defaults">
+            <str name="spellcheck">true</str>
+            <str name="spellcheck.dictionary">suggest</str>
+            <str name="spellcheck.onlyMorePopular">true</str>
+            <str name="spellcheck.count">5</str>
+            <str name="spellcheck.collate">true</str>
+        </lst>
+        <arr name="components">
+            <str>suggest</str>
+        </arr>
+    </requestHandler>
+
+    <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+        <str name="queryAnalyzerFieldType">textSpell</str>
+
+        <lst name="spellchecker">
+            <str name="name">default</str>
+            <str name="field">name</str>
+            <str name="classname">solr.DirectSolrSpellChecker</str>
+            <str name="distanceMeasure">internal</str>
+            <float name="accuracy">0.5</float>
+            <int name="maxEdits">2</int>
+            <int name="minPrefix">1</int>
+            <int name="maxInspections">5</int>
+            <int name="minQueryLength">4</int>
+            <float name="maxQueryFrequency">0.01</float>
+        </lst>
+
+        <lst name="spellchecker">
+            <str name="name">wordbreak</str>
+            <str name="classname">solr.WordBreakSolrSpellChecker</str>
+            <str name="field">name</str>
+            <str name="combineWords">true</str>
+            <str name="breakWords">true</str>
+            <int name="maxChanges">10</int>
+        </lst>
+
+        <lst name="spellchecker">
+            <str name="name">suggest</str>
+            <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+            <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
+            <str name="field">text</str>  <!-- the indexed field to derive suggestions from -->
+            <float name="threshold">0.005</float>
+            <str name="buildOnCommit">true</str>
+        </lst>
+    </searchComponent>
+
+    <searchComponent name="suggest" class="solr.SpellCheckComponent">
+        <lst name="spellchecker">
+            <str name="name">suggest</str>
+            <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+            <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookupFactory</str>
+            <str name="field">text_plain</str>  <!-- the indexed field to derive suggestions from -->
+            <float name="threshold">0.001</float>
+            <str name="buildOnCommit">true</str>
+        </lst>
+    </searchComponent>
+
+    <queryResponseWriter name="json" class="solr.JSONResponseWriter">
+        <str name="content-type">text/plain; charset=UTF-8</str>
+    </queryResponseWriter>
+
+    <admin>
+        <defaultQuery>*:*</defaultQuery>
+    </admin>
+
+</config>

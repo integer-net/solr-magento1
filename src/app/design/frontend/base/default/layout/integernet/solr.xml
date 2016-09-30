@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action method="addCss" ifconfig="integernet_solr/general/is_active">
+                <stylesheet>integernet/solr/css/autosuggest.css</stylesheet>
+            </action>
+        </reference>
+    </default>
+
+    <catalogsearch_result_index>
+        <reference name="head">
+            <action method="addItem" ifconfig="integernet_solr/general/is_active">
+                <type>skin_js</type>
+                <name>integernet/solr/js/result.js</name>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem" ifconfig="integernet_solr/general/is_active">
+                <type>skin_js</type>
+                <name>integernet/solr/js/result.js</name>
+            </action>
+        </reference>
+        <reference name="search.result">
+            <action ifconfig="integernet_solr/general/is_active" method="unsetChild">
+                <name>search_result_list</name>
+            </action>
+            <block ifconfig="integernet_solr/general/is_active" type="integernet_solr/result_list" name="search_result_list" template="catalog/product/list.phtml">
+                <action method="setTemplate" ifconfig="integernet_solr/results/use_html_from_solr">
+                    <template>integernet/solr/result.phtml</template>
+                </action>
+                <action method="unsetChild">
+                    <name>product_list_toolbar</name>
+                </action>
+                <block type="integernet_solr/result_list_item" as="item" name="search_result_list_item"/>
+                <block type="integernet_solr/result_list_toolbar" name="product_list_toolbar"
+                       template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>empty</layout>
+                    <count>6</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>one_column</layout>
+                    <count>5</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_left</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_right</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>three_columns</layout>
+                    <count>3</count>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>
+            </block>
+            <action method="setListOrders"/>
+            <action method="setListModes"/>
+            <action method="setListCollection"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="integernet_solr/js" name="solr.js" template="integernet/solr/js.phtml" />
+        </reference>
+    </catalogsearch_result_index>
+
+    <catalog_category_layered>
+        <reference name="head">
+            <action method="addItem" ifconfig="integernet_solr/category/is_active">
+                <type>skin_js</type>
+                <name>integernet/solr/js/result.js</name>
+            </action>
+        </reference>
+        <reference name="category.products">
+            <action ifconfig="integernet_solr/category/is_active" method="unsetChild">
+                <name>product_list</name>
+            </action>
+            <block ifconfig="integernet_solr/category/is_active" type="integernet_solr/result_list" name="product_list" template="catalog/product/list.phtml">
+                <action method="setTemplate" ifconfig="integernet_solr/results/use_html_from_solr">
+                    <template>integernet/solr/result.phtml</template>
+                </action>
+                <action method="unsetChild">
+                    <name>product_list_toolbar</name>
+                </action>
+                <block type="integernet_solr/result_list_item" as="item" name="product_list_item"/>
+                <block type="integernet_solr/result_list_toolbar" name="product_list_toolbar"
+                       template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>empty</layout>
+                    <count>6</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>one_column</layout>
+                    <count>5</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_left</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_right</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>three_columns</layout>
+                    <count>3</count>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>
+            </block>
+            <action method="setListOrders"/>
+            <action method="setListModes"/>
+            <action method="setListCollection"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="integernet_solr/js" name="solr.js" template="integernet/solr/js.phtml" />
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_category_default>
+        <reference name="category.products">
+            <action ifconfig="integernet_solr/category/is_active" method="unsetChild">
+                <name>product_list</name>
+            </action>
+            <block ifconfig="integernet_solr/category/is_active" type="integernet_solr/result_list" name="product_list" template="catalog/product/list.phtml">
+                <action method="setTemplate" ifconfig="integernet_solr/results/use_html_from_solr">
+                    <template>integernet/solr/result.phtml</template>
+                </action>
+                <action method="unsetChild">
+                    <name>product_list_toolbar</name>
+                </action>
+                <block type="integernet_solr/result_list_item" as="item" name="product_list_item"/>
+                <block type="integernet_solr/result_list_toolbar" name="product_list_toolbar"
+                       template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>empty</layout>
+                    <count>6</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>one_column</layout>
+                    <count>5</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_left</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_right</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>three_columns</layout>
+                    <count>3</count>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>
+            </block>
+            <action method="setListOrders"/>
+            <action method="setListModes"/>
+            <action method="setListCollection"/>
+        </reference>
+    </catalog_category_default>
+
+    <integernet_solr_result_index>
+        <update handle="catalogsearch_result_index"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <name>integernet/solr/ajax/json.phtml</name>
+            </action>
+            <block type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
+        </reference>
+
+        <remove name="right" />
+        <remove name="header" />
+        <remove name="footer" />
+    </integernet_solr_result_index>
+
+    <integernet_solr_category_view>
+        <update handle="catalog_category_view"/>
+        <reference name="root">
+            <block type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
+        </reference>
+
+        <remove name="right" />
+        <remove name="header" />
+        <remove name="footer" />
+    </integernet_solr_category_view>
+</layout>

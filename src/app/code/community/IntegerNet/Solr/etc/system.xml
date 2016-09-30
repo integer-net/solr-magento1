@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <integernet_solr translate="label" module="integernet_solr">
+            <label>IntegerNet_Solr</label>
+            <tab>service</tab>
+            <class>integernet-solr-tab</class>
+            <sort_order>28</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+            <groups>
+                <general translate="label"  module="integernet_solr">
+                    <label>General</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <description translate="label">
+                            <label />
+                            <frontend_model>integernet_solr/config_description</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </description>
+
+                        <is_active translate="label">
+                            <label>Is active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_active>
+
+                        <log translate="label,comment">
+                            <label>Activate Logging</label>
+                            <comment>The logs can be found at var/log/solr.log. Make sure to have logging activated.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </log>
+                    </fields>
+                </general>
+
+                <server translate="label"  module="integernet_solr">
+                    <label>Solr Server</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <host translate="label,comment">
+                            <label>Host</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Example: localhost, 192.168.46.102]]></comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </host>
+
+                        <port translate="label,comment">
+                            <label>Server Port</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Example: 8081]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </port>
+
+                        <path translate="label,comment">
+                            <label>Path</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Example: /solr/]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </path>
+
+                        <core translate="label,comment">
+                            <label>Core</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Example: collection1, core0]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </core>
+
+                        <http_method translate="label,comment">
+                            <label>HTTP Transport Method</label>
+                            <comment>Please change if you are getting communication errors</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>integernet_solr/source_httpTransportMethod</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </http_method>
+
+                        <use_https translate="label,comment">
+                            <label>Use HTTPS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_https>
+
+                        <use_http_basic_auth translate="label">
+                            <label>Use HTTP Basic Authentication</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_http_basic_auth>
+
+                        <http_basic_auth_username translate="label">
+                            <label>HTTP Basic Authentication: Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <use_http_basic_auth>1</use_http_basic_auth>
+                            </depends>
+                        </http_basic_auth_username>
+
+                        <http_basic_auth_password translate="label">
+                            <label>HTTP Basic Authentication: Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <use_http_basic_auth>1</use_http_basic_auth>
+                            </depends>
+                        </http_basic_auth_password>
+
+                    </fields>
+                </server>
+
+                <indexing translate="label">
+                    <label>Indexing</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <pagesize translate="label,comment">
+                            <label>Number of Products per Bunch</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Higher number means better indexing performance. Reduce if you are getting memory errors.</comment>
+                        </pagesize>
+                        <delete_documents_before_indexing translate="label">
+                            <label>Delete all Solr Index Entries before Reindexing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </delete_documents_before_indexing>
+                        <swap_cores translate="label,comment">
+                            <label>Swap Cores after Full Reindex</label>
+                            <comment>Allows reindexing on an inactive core and switch when finished</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </swap_cores>
+                        <swap_core translate="label,comment">
+                            <label>Name of Core to swap active Core with</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <swap_cores>1</swap_cores>
+                            </depends>
+                        </swap_core>
+                    </fields>
+                </indexing>
+
+                <fuzzy translate="label">
+                    <label>Fuzzy Search</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <is_active translate="label">
+                            <label>Is active for Search</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_active>
+                        <sensitivity translate="label,comment">
+                            <label>Sensitivity for Search</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Value between 0 and 1. Smaller values mean more fuzzy search results.</comment>
+                            <depends><is_active>1</is_active></depends>
+                        </sensitivity>
+                        <minimum_results translate="label">
+                            <label>Number of Sufficient Direct Search Results</label>
+                            <comment>If there are at least this many search results, fuzzy search will not be performed. If you enter 0 or no value, fuzzy search will always be performed.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <is_active>1</is_active>
+                            </depends>
+                        </minimum_results>
+                    </fields>
+                </fuzzy>
+
+                <results translate="label">
+                    <label>Search Results</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <search_operator translate="label">
+                            <label>Search Operator</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>integernet_solr/source_searchOperator</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_operator>
+                        <filter_position translate="label">
+                            <label>Position of Filters</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>integernet_solr/source_filterPosition</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </filter_position>
+                        <max_number_filter_options translate="label,comment">
+                            <label>Maximum number of Filter Options per Filter</label>
+                            <comment>0 = all</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_number_filter_options>
+                        <sort_filter_options_alphabetically translate="label,comment">
+                            <label>Sort Filter Options alphabetically</label>
+                            <comment>By default, filters are sorted by number of results.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_filter_options_alphabetically>
+                        <show_category_filter translate="label,comment">
+                            <label>Show category filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_category_filter>
+                        <priority_categories translate="label,comment">
+                            <label>Solr Priority of Category Names</label>
+                            <comment>1 is default, use higher numbers for higher priority.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </priority_categories>
+                        <price_step_size translate="label,comment">
+                            <label>Size of Price Steps</label>
+                            <comment><![CDATA[i.e. 100]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_step_size>
+                        <max_price translate="label,comment">
+                            <label>Upper Limit of Price Steps</label>
+                            <comment><![CDATA[i.e. 1000]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_price>
+                        <use_custom_price_intervals translate="label,comment">
+                            <label>Use Custom Price Intervals</label>
+                            <comment><![CDATA[Needs Solr 4.10+ and Magento CE 1.7+ / Magento EE 1.12+]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_custom_price_intervals>
+                        <custom_price_intervals translate="label,comment">
+                            <label>Custom Price Intervals</label>
+                            <comment><![CDATA[Divide steps by comma, i.e. 10,20,50,100,200,300,400,500]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><use_custom_price_intervals>1</use_custom_price_intervals></depends>
+                        </custom_price_intervals>
+                        <product_attributes_redirect translate="label,comment">
+                            <label>Redirect to product page on direct match in one of these attributes</label>
+                            <comment><![CDATA[If the exact name / sku / ... is entered in the search field, the customer will be redirected to the product view page.]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integernet_solr/source_varcharProductAttribute</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_attributes_redirect>
+                        <category_attributes_redirect translate="label,comment">
+                            <label>Redirect to category page on direct match in one of these attributes</label>
+                            <comment><![CDATA[If the exact name / ... is entered in the search field, the customer will be redirected to the category view page.]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integernet_solr/source_varcharCategoryAttribute</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_attributes_redirect>
+                    </fields>
+                </results>
+
+                <dev translate="label,comment" module="integernet_solr">
+                    <label>Developer</label>
+                    <sort_order>110</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <register_autoloader>
+                            <label>Register Autoloader</label>
+                            <comment>Disable if you are using an own PSR-4 autoloader, e.g. from composer</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </register_autoloader>
+                        <autoloader_basepath>
+                            <label>Autoloader Base Path</label>
+                            <comment>Path to IntegerNet_Solr library. Absolute path or relative to Magento base dir.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><register_autoloader>1</register_autoloader></depends>
+                        </autoloader_basepath>
+                    </fields>
+                </dev>
+            </groups>
+        </integernet_solr>
+    </sections>
+</config>

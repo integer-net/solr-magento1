@@ -5,7 +5,7 @@
   "homepage": "https://github.com/integer-net/solr-magento1-base",
   "require": {
     "aoepeople/aoe_layoutconditions": "dev-master",
-    "integer-net/solr-base": "dev-master",
+    "integer-net/solr-base": "dev-master"
   },
   "require-dev": {
     "ecomdev/ecomdev_phpunit": "dev-dev",

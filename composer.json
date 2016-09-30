@@ -1,5 +1,5 @@
 {
-  "name": "integer_net/solr-magento1",
+  "name": "integer-net/solr-magento1",
   "type": "magento-module",
   "description": "integer_net Solr Module for Magento 1 (free)",
   "homepage": "https://github.com/integer-net/solr-magento1",

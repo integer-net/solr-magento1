@@ -1,0 +1,37 @@
+{
+  "name": "integer_net/solr-magento1",
+  "type": "magento-module",
+  "description": "integer_net Solr Module for Magento 1 (free)",
+  "homepage": "https://github.com/integer-net/solr-magento1-base",
+  "require": {
+    "aoepeople/aoe_layoutconditions": "dev-master",
+    "integer-net/solr-base": "dev-master",
+  },
+  "require-dev": {
+    "ecomdev/ecomdev_phpunit": "dev-dev",
+    "phpunit/phpunit": "~4.5",
+    "mikey179/vfsStream": "~1.3"
+  },
+  "suggest": {
+    "magento-hackathon/magento-composer-installer": "Magento module installer",
+    "firegento/psr0autoloader": "With this extension you can include the composer autoloader and you don't need to activate the custom autoloader shipped with IntegerNet_Solr"
+  },
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:schmengler/Aoe_LayoutConditions.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:integer-net/solr-base.git"
+    },
+    {
+      "type": "composer",
+      "url": "https://packages.firegento.com"
+    }
+  ],
+  "extra": {
+    "magento-root-dir": ".travis/magento"
+  }
+}

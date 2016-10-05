@@ -139,7 +139,7 @@ USAGE;
      */
     protected function _useCategoryIndexer()
     {
-        return Mage::getStoreConfigFlag('integernet_solr/category/is_indexer_active');
+        return Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro') && Mage::getStoreConfigFlag('integernet_solr/category/is_indexer_active');
     }
 
     /**
@@ -147,7 +147,7 @@ USAGE;
      */
     protected function _useCmsIndexer()
     {
-        return Mage::getStoreConfigFlag('integernet_solr/cms/is_active');
+        return Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro') && Mage::getStoreConfigFlag('integernet_solr/cms/is_active');
     }
 }
 

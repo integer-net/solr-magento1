@@ -28,7 +28,7 @@ class IntegerNet_Solr_Model_Configuration
     protected function _checkConfiguration($storeId = null)
     {
         $this->_createGeneralInfoMessages($storeId);
-        
+
         if (!$this->_isStoreEnabled($storeId)) {
             return;
         }
@@ -75,8 +75,13 @@ class IntegerNet_Solr_Model_Configuration
     protected function _createGeneralInfoMessages($storeId)
     {
         $this->_addNoticeMessage(
-            Mage::helper('integernet_solr')->__('Module version: %s', Mage::getConfig()->getModuleConfig('IntegerNet_Solr')->version)
+            Mage::helper('integernet_solr')->__('Module version: %s', $this->_getModuleVersion())
         );
+
+        $this->_addNoticeMessage(
+            Mage::helper('integernet_solr')->__('Library version: %s', $this->_getLibraryVersion())
+        );
+
         if (method_exists('Mage', 'getEdition')) {
             $this->_addNoticeMessage(
                 Mage::helper('integernet_solr')->__('Magento version: %s (%s Edition)', Mage::getVersion(), Mage::getEdition())
@@ -155,7 +160,7 @@ class IntegerNet_Solr_Model_Configuration
 
         } else {
             if (!Mage::helper('integernet_solr')->module()->isKeyValid(Mage::getStoreConfig('integernet_solr/general/license_key'))) {
-    
+
                 if ($installTimestamp = Mage::getStoreConfig('integernet_solr/general/install_date')) {
 
                     $diff = time() - $installTimestamp;
@@ -373,5 +378,55 @@ class IntegerNet_Solr_Model_Configuration
     protected function _addNoticeMessage($text)
     {
         $this->_addMessage($text, 'notice');
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getModuleVersion()
+    {
+        $moduleVersion = Mage::getConfig()->getModuleConfig('IntegerNet_Solr')->version;
+        if ($versionSuffix = Mage::getConfig()->getModuleConfig('IntegerNet_Solr')->version_suffix) {
+            $moduleVersion .= ' ' . $versionSuffix;
+        }
+        if (Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            $proModuleVersion = Mage::getConfig()->getModuleConfig('IntegerNet_SolrPro')->version;
+            if ($versionSuffix = Mage::getConfig()->getModuleConfig('IntegerNet_SolrPro')->version_suffix) {
+                $proModuleVersion .= ' ' . $versionSuffix;
+            }
+            $moduleVersion .= ' (Pro: ' . $proModuleVersion . ')';
+        }
+        return $moduleVersion;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getLibraryVersion()
+    {
+        if (!class_exists('\IntegerNet\Solr\Util\Version')) {
+            Mage::throwException(
+                Mage::helper('integernet_solr')->__(
+                    'The IntegerNet_Solr library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                    'https://github.com/integer-net/solr-base',
+                    'https://github.com/integer-net/solr-base'
+                )
+            );
+        }
+        $libraryVersion = \IntegerNet\Solr\Util\Version::getVersion();
+
+        if (Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            if (!class_exists('\IntegerNet\SolrSuggest\Util\Version')) {
+                Mage::throwException(
+                    Mage::helper('integernet_solr')->__(
+                        'The IntegerNet_Solr Pro library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                        'https://github.com/integer-net/solr-pro',
+                        'https://github.com/integer-net/solr-pro'
+                    )
+                );
+            }
+            $libraryVersion .= ' (Pro: ' . \IntegerNet\SolrSuggest\Util\Version::getVersion() . ')';
+        }
+        return $libraryVersion;
     }
 }

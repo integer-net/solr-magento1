@@ -2,7 +2,8 @@
 <config>
     <modules>
         <IntegerNet_Solr>
-            <version>1.6.0.5</version>
+            <version>1.7.0.0</version>
+            <version_suffix>beta1</version_suffix>
         </IntegerNet_Solr>
     </modules>
     <global>
@@ -131,16 +132,6 @@
                 </setup>
             </integernet_solr_setup>
         </resources>
-
-        <template>
-            <email>
-                <integernet_solr_connection_check_email_template translate="label" module="integernet_solr">
-                    <label>Solr Connection Check Notification</label>
-                    <file>integernet_solr/connection_check.txt</file>
-                    <type>text</type>
-                </integernet_solr_connection_check_email_template>
-            </email>
-        </template>
     </global>
 
     <adminhtml>
@@ -172,6 +163,15 @@
                     </integernet_solr>
                 </observers>
             </adminhtml_catalog_product_attribute_edit_prepare_form>
+            <controller_action_predispatch_adminhtml_system_config_edit>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>controllerActionPredispatchAdminhtmlSystemConfigEdit</method>
+                    </integernet_solr>
+                </observers>
+            </controller_action_predispatch_adminhtml_system_config_edit>
         </events>
     </adminhtml>
 

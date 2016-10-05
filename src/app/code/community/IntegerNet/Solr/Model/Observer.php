@@ -31,6 +31,33 @@ class IntegerNet_Solr_Model_Observer
         $field->setValue('1.0000');
     }
 
+    public function controllerActionPredispatchAdminhtmlSystemConfigEdit(Varien_Event_Observer $observer)
+    {
+        if ($observer->getControllerAction()->getRequest()->getParam('section') != 'integernet_solr') {
+            return;
+        }
+        if (!class_exists('\IntegerNet\Solr\Util\Version')) {
+            Mage::throwException(
+                Mage::helper('integernet_solr')->__(
+                    'The IntegerNet_Solr library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                    'https://github.com/integer-net/solr-base',
+                    'https://github.com/integer-net/solr-base'
+                )
+            );
+        }
+        if (Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            if (!class_exists('\IntegerNet\SolrSuggest\Util\Version')) {
+                Mage::throwException(
+                    Mage::helper('integernet_solr')->__(
+                        'The IntegerNet_Solr Pro library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                        'https://github.com/integer-net/solr-pro',
+                        'https://github.com/integer-net/solr-pro'
+                    )
+                );
+            }
+        }
+    }
+
     /**
      * Add new column "solr_boost" to attribute grid
      *
@@ -68,7 +95,32 @@ class IntegerNet_Solr_Model_Observer
      */
     public function controllerActionPredispatchCatalogsearchResultIndex(Varien_Event_Observer $observer)
     {
-        if (Mage::getStoreConfigFlag('integernet_solr/general/is_active') && !$this->_getPingResult()) {
+        if (!Mage::getStoreConfigFlag('integernet_solr/general/is_active')) {
+            return;
+        }
+
+        if (!class_exists('\IntegerNet\Solr\Util\Version')) {
+            Mage::throwException(
+                Mage::helper('integernet_solr')->__(
+                    'The IntegerNet_Solr library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                    'https://github.com/integer-net/solr-base',
+                    'https://github.com/integer-net/solr-base'
+                )
+            );
+        }
+        if (Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            if (!class_exists('\IntegerNet\SolrSuggest\Util\Version')) {
+                Mage::throwException(
+                    Mage::helper('integernet_solr')->__(
+                        'The IntegerNet_Solr Pro library is not installed. You can get it from <a href="%s" target="_blank">%s</a>.',
+                        'https://github.com/integer-net/solr-pro',
+                        'https://github.com/integer-net/solr-pro'
+                    )
+                );
+            }
+        }
+
+        if (!$this->_getPingResult()) {
             Mage::app()->getStore()->setConfig('integernet_solr/general/is_active', 0);
         }
 

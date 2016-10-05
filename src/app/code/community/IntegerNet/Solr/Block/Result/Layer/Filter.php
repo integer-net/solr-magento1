@@ -71,6 +71,21 @@ class IntegerNet_Solr_Block_Result_Layer_Filter extends Mage_Core_Block_Template
      */
     protected function _getUrl($optionId)
     {
+        if (!Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            if ($this->isCategory()) {
+                $query = array(
+                    'cat' => $optionId,
+                    Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+                );
+            } else {
+                $query = array(
+                    $this->getAttribute()->getAttributeCode() => $optionId,
+                    Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+                );
+            }
+            return Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true, '_query' => $query));
+        }
+
         if ($this->isCategory()) {
             $identifier = 'cat';
         } else {
@@ -385,6 +400,9 @@ class IntegerNet_Solr_Block_Result_Layer_Filter extends Mage_Core_Block_Template
 
     protected function _getCheckboxHtml($attributeCode, $optionId)
     {
+        if (!Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            return '';
+        }
         /** @var $checkboxBlock IntegerNet_Solr_Block_Result_Layer_Checkbox */
         $checkboxBlock = $this->getLayout()->createBlock('integernet_solr/result_layer_checkbox');
         $checkboxBlock

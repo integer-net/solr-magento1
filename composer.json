@@ -4,8 +4,8 @@
   "description": "IntegerNet_Solr Module for Magento 1 (free)",
   "homepage": "https://github.com/integer-net/solr-magento1",
   "require": {
-    "aoepeople/aoe_layoutconditions": "dev-master",
-    "integer-net/solr-base": "dev-master"
+    "aoepeople/aoe_layoutconditions": "~1.0.0",
+    "integer-net/solr-base": "~1.0.0"
   },
   "require-dev": {
     "ecomdev/ecomdev_phpunit": "dev-dev",

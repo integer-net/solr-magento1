@@ -12,6 +12,5 @@ src/app/locale/de_DE/IntegerNet_Solr.csv                            app/locale/d
 src/shell/integernet-solr.php                                       shell/integernet-solr.php
 src/skin/frontend/base/default/integernet/solr/css/*                skin/frontend/base/default/integernet/solr/css/
 src/skin/frontend/base/default/integernet/solr/js/*                 skin/frontend/base/default/integernet/solr/js/
-src/skin/frontend/default/modern/integernet/solr/css/*              skin/frontend/default/modern/integernet/solr/css/
 src/skin/frontend/rwd/default/integernet/solr/css/*                 skin/frontend/rwd/default/integernet/solr/css/
 src/skin/adminhtml/default/default/integernet/solr/*                skin/adminhtml/default/default/integernet/solr/

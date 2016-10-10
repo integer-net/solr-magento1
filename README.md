@@ -1,4 +1,4 @@
-![IntegerNet_Solr Logo](https://www.integer-net.de/wp-content/uploads/2012/11/integernet-solr-logo-small.png)
+![IntegerNet_Solr Free](doc/solr_free_banner.png)
 
 # IntegerNet_Solr Free
 This is a free extension to integrate Solr as a product search in an online store running on Magento Community 
@@ -16,10 +16,14 @@ The search algorithm performs a fuzzy search to help with usability. When you ha
 your search request, the fuzzy search will look for similar words, increasing the chance of finding a match. 
 
 ### Boost Products or Attributes
-
 Use your catalog search as a marketing feature to increase the sales of certain products. You can either select 
 individual or a bunch of products to boost, or you can boost an attribute. Whenever one of these boosted 
 products or attributes are a match with the search term, they are ranked higher than usual.
+
+### Use second Solr Core to avoid downtime during Indexing
+If you have a second Solr core available (you should!), you can use that to run the indexing process on while 
+ the first core still serves the search during that time. Once indexing is finished, the cores will be switched
+ automatically in an atomic operation.
 
 ## Requirements
 - Magento Community Edition 1.7 to 1.9

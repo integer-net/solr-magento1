@@ -13,7 +13,7 @@ use IntegerNet\SolrSuggest\Implementor\SuggestCategoryRepository;
 use IntegerNet\SolrCategories\Implementor\CategoryRepository;
 use IntegerNet\SolrCategories\Implementor\CategoryIterator;
 
-class IntegerNet_Solr_Model_Bridge_CategoryRepository implements SuggestCategoryRepository, CategoryRepository
+class IntegerNet_Solr_Model_Bridge_IndexCategoryRepository implements IndexCategoryRepository
 {
     protected $_pathCategoryIds = array();
     protected $_excludedCategoryIds = array();
@@ -33,16 +33,6 @@ class IntegerNet_Solr_Model_Bridge_CategoryRepository implements SuggestCategory
      * @var int
      */
     protected $_pageSize;
-
-    /**
-     * @param int $pageSize
-     * @return $this
-     */
-    public function setPageSizeForIndex($pageSize)
-    {
-        $this->_pageSize = $pageSize;
-        return $this;
-    }
 
     /**
      * @param $categoryIds
@@ -118,7 +108,7 @@ class IntegerNet_Solr_Model_Bridge_CategoryRepository implements SuggestCategory
             ->addAttributeToSelect(array('is_active', 'include_in_menu'));
 
         foreach ($categories as $category) {
-            /** @var Mage_Catalog_Model_Category $categoryPathIds */
+            /** @var Mage_Catalog_Model_Category $category */
             if (!$category->getIsActive() || !$category->getIncludeInMenu()) {
                 $this->_pathCategoryIds[$storeId][$category->getId()] = array();
                 continue;
@@ -194,48 +184,5 @@ class IntegerNet_Solr_Model_Bridge_CategoryRepository implements SuggestCategory
             ->where('store_id = ?', $product->getStoreId());
 
         return $adapter->fetchAll($select);
-    }
-
-    /**
-     * @prarm int $storeId
-     * @param int[] $categoryIds
-     * @return \IntegerNet\SolrSuggest\Implementor\SuggestCategory[]
-     */
-    public function findActiveCategoriesByIds($storeId, $categoryIds)
-    {
-        /** @var Mage_Catalog_Model_Resource_Category_Collection $categoryCollection */
-        $categoryCollection = Mage::getResourceModel('catalog/category_collection');
-        $categoryCollection
-            ->setStoreId($storeId)
-            ->addAttributeToSelect(array('name', 'url_key'))
-            ->addAttributeToFilter('is_active', 1)
-            ->addAttributeToFilter('include_in_menu', 1)
-            ->addAttributeToFilter('entity_id', array('in' => $categoryIds));
-        return array_map(
-            function(Mage_Catalog_Model_Category $category) {
-                $categoryPathIds = $category->getPathIds();
-                array_shift($categoryPathIds);
-                array_shift($categoryPathIds);
-                array_pop($categoryPathIds);
-
-                $categoryPathNames = $this->getCategoryNames($categoryPathIds, 0);
-                $categoryPathNames[] = $category->getName();
-
-                return $this->_bridgeFactory->createCategory($category, $categoryPathNames);
-            },
-            $categoryCollection->getItems()
-        );
-    }
-
-    /**
-     * Return page iterator, which may implement lazy loading
-     *
-     * @param int $storeId Pages will be returned that are visible in this store and with store specific values
-     * @param null|int[] $categoryIds filter by category ids
-     * @return CategoryIterator
-     */
-    public function getCategoriesForIndex($storeId, $categoryIds = null)
-    {
-        return $this->_bridgeFactory->createLazyCategoryIterator($storeId, $categoryIds, $this->_pageSize);
     }
 }

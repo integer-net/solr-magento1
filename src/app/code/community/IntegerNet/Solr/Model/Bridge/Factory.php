@@ -62,6 +62,14 @@ class IntegerNet_Solr_Model_Bridge_Factory
     }
 
     /**
+     * @return IntegerNet_Solr_Model_Bridge_IndexCategoryRepository
+     */
+    public function getIndexCategoryRepository()
+    {
+        return Mage::getSingleton('integernet_solr/bridge_indexCategoryRepository');
+    }
+
+    /**
      * @return IntegerNet_Solr_Model_Bridge_CategoryRepository
      */
     public function getCategoryRepository()

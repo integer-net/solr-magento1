@@ -79,6 +79,16 @@ Any pull requests are warmly welcome.
 Please note that this is a free extension. We do not provide individual customer support for this extension. 
 If you find a bug, please open a GitHub issue.
 
+##Uninstall
+If you want to uninstall the extension, please first remove all extension files. Then execute the following SQL
+Queries (please modify the table names if you are using a table prefix):
+
+```sql
+    DELETE FROM eav_attribute WHERE attribute_code LIKE 'solr_%';
+    DELETE FROM core_resource WHERE code = 'integernet_solr_setup';
+    DELETE FROM core_config_data WHERE path LIKE 'integernet_solr/%';
+```
+
 ## Upgrade
 IntegerNet\_Solr Free is an offspring of **IntegerNet_Solr Pro**, our powerful Solr extension for Magento. 
 It offers more features, such as an extensive autosuggest window, multiselect filters, product lists in 

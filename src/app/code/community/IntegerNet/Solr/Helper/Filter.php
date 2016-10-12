@@ -13,7 +13,7 @@ class IntegerNet_Solr_Helper_Filter extends Mage_Core_Helper_Abstract
 {
     public function getFilterPosition()
     {
-        if (!class_exists('CategoryConfig')) {
+        if (!@class_exists('CategoryConfig')) {
             return '';
         }
         if( $category = Mage::registry('current_category') ){

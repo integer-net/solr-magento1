@@ -60,9 +60,6 @@
             <action method="setListModes"/>
             <action method="setListCollection"/>
         </reference>
-        <reference name="before_body_end">
-            <block type="integernet_solr/js" name="solr.js" template="integernet/solr/js.phtml" />
-        </reference>
     </catalogsearch_result_index>
 
     <catalog_category_layered>

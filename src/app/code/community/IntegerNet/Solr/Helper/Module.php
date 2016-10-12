@@ -63,6 +63,9 @@ class IntegerNet_Solr_Helper_Module
      */
     public function isLicensed()
     {
+        if (!Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro')) {
+            return true;
+        }
         if (!$this->isKeyValid(Mage::getStoreConfig('integernet_solr/general/license_key'))) {
 
             if ($installTimestamp = Mage::getStoreConfig('integernet_solr/general/install_date')) {

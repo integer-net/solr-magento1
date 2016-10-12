@@ -194,7 +194,7 @@ class IntegerNet_Solr_Helper_Factory implements SolrRequestFactory
      */
     protected function _getIndexCategoryRepository()
     {
-        return $this->_bridgeFactory->getCategoryRepository();
+        return $this->_bridgeFactory->getIndexCategoryRepository();
     }
 
     /**

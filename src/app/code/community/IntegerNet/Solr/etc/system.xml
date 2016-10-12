@@ -5,13 +5,14 @@
             <label>IntegerNet_Solr</label>
             <tab>service</tab>
             <class>integernet-solr-tab</class>
+            <frontend_model>integernet_solr/config_adminhtml_form</frontend_model>
             <sort_order>28</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
 
             <groups>
-                <general translate="label"  module="integernet_solr">
+                <general translate="label" module="integernet_solr">
                     <label>General</label>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -19,7 +20,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <description translate="label">
-                            <label />
+                            <label/>
                             <frontend_model>integernet_solr/config_description</frontend_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -50,7 +51,7 @@
                     </fields>
                 </general>
 
-                <server translate="label"  module="integernet_solr">
+                <server translate="label" module="integernet_solr">
                     <label>Solr Server</label>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
@@ -232,7 +233,9 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Value between 0 and 1. Smaller values mean more fuzzy search results.</comment>
-                            <depends><is_active>1</is_active></depends>
+                            <depends>
+                                <is_active>1</is_active>
+                            </depends>
                         </sensitivity>
                         <minimum_results translate="label">
                             <label>Number of Sufficient Direct Search Results</label>
@@ -344,7 +347,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><use_custom_price_intervals>1</use_custom_price_intervals></depends>
+                            <depends>
+                                <use_custom_price_intervals>1</use_custom_price_intervals>
+                            </depends>
                         </custom_price_intervals>
                         <product_attributes_redirect translate="label,comment">
                             <label>Redirect to product page on direct match in one of these attributes</label>
@@ -394,7 +399,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><register_autoloader>1</register_autoloader></depends>
+                            <depends>
+                                <register_autoloader>1</register_autoloader>
+                            </depends>
                         </autoloader_basepath>
                     </fields>
                 </dev>

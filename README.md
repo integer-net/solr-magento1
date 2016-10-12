@@ -84,3 +84,5 @@ IntegerNet\_Solr Free is an offspring of **IntegerNet_Solr Pro**, our powerful S
 It offers more features, such as an extensive autosuggest window, multiselect filters, product lists in 
 categories loaded via Solr and support of Magento Enterprise Edition. For more information, please visit our 
 [website](https://www.integer-net.com/solr-magento/).
+
+[![Upgrade to IntegerNet_Solr Pro](src/skin/adminhtml/default/default/integernet/solr/solr_free_banner_upgrade_to_pro.png)](https://www.integer-net.com/solr-magento/features/?utm_source=readme&utm_medium=banner&utm_term=features&utm_content=features&utm_campaign=upgrade)

@@ -43,6 +43,11 @@ class IntegerNet_Solr_Model_Bridge_LazyCategoryIterator implements CategoryItera
     protected $_collectionIterator;
 
     /**
+     * @var IntegerNet_Solr_Model_Resource_Db
+     */
+    protected $_dbResource;
+
+    /**
      * @link http://php.net/manual/en/outeriterator.getinneriterator.php
      * @return Iterator The inner iterator for the current entry.
      */
@@ -63,6 +68,7 @@ class IntegerNet_Solr_Model_Bridge_LazyCategoryIterator implements CategoryItera
         $this->_storeId = $_storeId;
         $this->_categoryIdFilter = $_categoryIdFilter;
         $this->_categorySize = $_categorySize;
+        $this->_dbResource = Mage::getResourceModel('integernet_solr/db');
     }
 
     /**
@@ -92,6 +98,7 @@ class IntegerNet_Solr_Model_Bridge_LazyCategoryIterator implements CategoryItera
         } elseif ($this->_currentCategory < $this->_collection->getLastPageNumber()) {
             $this->_currentCategory++;
             $this->_collection = self::getCategoryCollection($this->_storeId, $this->_categoryIdFilter, $this->_categorySize, $this->_currentCategory);
+            $this->_dbResource->disconnectMysql();
             $this->_collectionIterator = $this->_collection->getIterator();
             $this->getInnerIterator()->rewind();
             return $this->getInnerIterator()->valid();
@@ -106,6 +113,7 @@ class IntegerNet_Solr_Model_Bridge_LazyCategoryIterator implements CategoryItera
     {
         $this->_currentCategory = 1;
         $this->_collection = self::getCategoryCollection($this->_storeId, $this->_categoryIdFilter, $this->_categorySize, $this->_currentCategory);
+        $this->_dbResource->disconnectMysql();
         $this->_collectionIterator = $this->_collection->getIterator();
         $this->_collectionIterator->rewind();
     }

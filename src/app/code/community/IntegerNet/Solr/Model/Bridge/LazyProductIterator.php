@@ -171,6 +171,7 @@ class IntegerNet_Solr_Model_Bridge_LazyProductIterator implements PagedProductIt
         Mage::dispatchEvent('integernet_solr_product_collection_load_after', array(
             'collection' => $productCollection
         ));
+        self::disconnectMysql();
 
         return $productCollection;
     }
@@ -182,6 +183,7 @@ class IntegerNet_Solr_Model_Bridge_LazyProductIterator implements PagedProductIt
     {
         $valid = $this->getInnerIterator()->valid();
         if (! $valid) {
+            $this->disconnectMysql();
             call_user_func($this->_pageCallback, $this);
         }
         return $valid;
@@ -228,5 +230,19 @@ class IntegerNet_Solr_Model_Bridge_LazyProductIterator implements PagedProductIt
         return $this->_bridgeFactory->createProductIterator($dataCollection);
     }
 
+    /**
+     * Close all open MySQL connections (will be automatically reopened if used)
+     *
+     * Called during indexing to prevent wait timeout
+     */
+    private static function disconnectMysql()
+    {
+        /** @var Zend_Db_Adapter_Abstract $connection */
+        foreach (Mage::getSingleton('core/resource')->getConnections() as $name => $connection) {
+            if ($connection instanceof Zend_Db_Adapter_Abstract) {
+                $connection->closeConnection();
+            }
+        }
+    }
 
 }

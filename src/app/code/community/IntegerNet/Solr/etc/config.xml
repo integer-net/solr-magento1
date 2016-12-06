@@ -39,6 +39,12 @@
                     <layer_filter_category>IntegerNet_Solr_Model_Catalog_Layer_Filter_Category</layer_filter_category>
                 </rewrite>
             </catalog>
+
+            <iways_paypalplus>
+                <rewrite>
+                    <autoloader>IntegerNet_Solr_Helper_Autoloader_PayPalPlus</autoloader>
+                </rewrite>
+            </iways_paypalplus>
         </models>
 
         <blocks>

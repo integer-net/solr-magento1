@@ -161,6 +161,39 @@ class IntegerNet_Solr_Test_Model_Result extends EcomDev_PHPUnit_Test_Case_Contro
         $this->setCurrentStore($storeId);
         $result->getSolrResult();
     }
+    /**
+     * @test
+     */
+    public function shouldExpandPageSizeIfFuzzyIsActive()
+    {
+        $storeId = 1;
+        $query = 'tshirt';
+
+        $this->app()->getStore($storeId)->setConfig('integernet_solr/fuzzy/is_active', 1);
+        $this->app()->getLayout()->unsetBlock('product_list_toolbar');
+        $searchHelperStub = $this->mockHelper('catalogsearch', ['getQueryText']);
+        $searchHelperStub->expects($this->any())
+            ->method('getQueryText')
+            ->willReturn($query);
+        $this->replaceByMock('helper', 'catalogsearch', $searchHelperStub);
+
+        $this->_resourceMock->expects($this->exactly(2))
+            ->method('search')
+            ->with(
+                $storeId,
+                $this->stringContains($query),
+                0,
+                99999,
+                $this->logicalAnd(
+                    $this->isType('array'),
+                    $this->contains('score desc', true, true),
+                    $this->logicalNot($this->arrayHasKey('rows'))
+                ))
+            ->willReturn($this->_getDummyResponse());
+        $result = Mage::getModel('integernet_solr/result');
+        $this->setCurrentStore($storeId);
+        $result->getSolrResult();
+    }
 
     /**
      * @test

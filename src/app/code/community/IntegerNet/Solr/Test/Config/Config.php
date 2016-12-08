@@ -11,7 +11,6 @@ class IntegerNet_Solr_Test_Config_Config extends EcomDev_PHPUnit_Test_Case_Confi
 {
     /**
      * @test
-     * @loadExpections
      */
     public function globalConfig()
     {

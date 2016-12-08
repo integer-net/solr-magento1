@@ -13,6 +13,7 @@ registry:
     - catalog/session
     - customer/session
     - reports/session
+    - index/indexer
     - integernet_solr/observer
     - integernet_solr/bridge_attributeRepository
     - integernet_solr/bridge_categoryRepository

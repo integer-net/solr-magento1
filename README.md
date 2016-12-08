@@ -4,6 +4,10 @@
 This is a free extension to integrate Solr as a product search in an online store running on Magento Community 
 Edition 1.7 - 1.9.
 
+## Build Status (master)
+
+[![wercker status](https://app.wercker.com/status/2ae00efb6f4d235c8685de56bb4dafc6/m/master "wercker status")](https://app.wercker.com/project/byKey/2ae00efb6f4d235c8685de56bb4dafc6)
+
 ## Features
 
 ### Fast Search Results

@@ -9,7 +9,6 @@
  */
 use IntegerNet\Solr\Query\Params\FilterQueryBuilder;
 use IntegerNet\Solr\Request\HasFilter;
-use IntegerNet\Solr\Request\Request;
 
 class IntegerNet_Solr_Model_Result
 {
@@ -24,11 +23,11 @@ class IntegerNet_Solr_Model_Result
     /**
      * @var $_solrResult null|\IntegerNet\Solr\Resource\SolrResponse
      */
-    protected $_solrResult = null;
+    protected $_solrResult;
 
     protected $activeFilterAttributeCodes = array();
 
-    function __construct()
+    public function __construct()
     {
         $this->_solrRequest = Mage::helper('integernet_solr')->factory()->getSolrRequest();
         if ($this->_solrRequest instanceof HasFilter) {
@@ -46,7 +45,7 @@ class IntegerNet_Solr_Model_Result
      */
     public function getSolrResult()
     {
-        if (is_null($this->_solrResult)) {
+        if (null === $this->_solrResult) {
             $this->_solrResult = $this->_solrRequest->doRequest($this->activeFilterAttributeCodes);
         }
 

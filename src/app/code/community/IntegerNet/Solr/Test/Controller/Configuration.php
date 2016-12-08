@@ -29,7 +29,6 @@ class IntegerNet_Solr_Test_Controller_Configuration extends IntegerNet_Solr_Test
             'Solr server configuration is complete.',
             'Connection to Solr server established successfully.',
             'Test search request issued successfully.',
-            'You haven\'t entered your license key yet.'
         ];
         foreach ($expectedMessages as $message) {
             /*

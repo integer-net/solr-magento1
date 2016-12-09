@@ -22,5 +22,7 @@ class IntegerNet_Solr_Model_Resource_Db
                 $connection->closeConnection();
             }
         }
+        // connections (adapter objects) must be fully reinitialized, otherwise initStatements are not executed
+        Mage::unregister('_singleton/core/resource');
     }
 }

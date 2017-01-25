@@ -35,4 +35,17 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends EcomDev_PHPUnit_Test_Ca
         Mage::helper('integernet_solr')->factory()->getProductIndexer()->reindex();
     }
 
+    /**
+     * @test
+     * @loadFixture catalog
+     */
+    public function saveProductShouldUpdateSolrIndex()
+    {
+        $this->setCurrentStore(0);
+        $this->adminSession();
+        $productId = 1;
+        $product = Mage::getModel('catalog/product')->load($productId);
+        $product->setData('name', 'Product One SUPERDUPER');
+        $product->save();
+    }
 }

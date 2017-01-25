@@ -87,24 +87,8 @@ class IntegerNet_Solr_Helper_Factory implements SolrRequestFactory
     public function getSolrRequest($requestMode = self::REQUEST_MODE_AUTODETECT)
     {
         $storeId = Mage::app()->getStore()->getId();
-        $config = new IntegerNet_Solr_Model_Config_Store($storeId);
-        if ($config->getGeneralConfig()->isLog()) {
-            $logger = $this->_getLogger();
-            if ($logger instanceof IntegerNet_Solr_Helper_Log) {
-                $logger->setFile('solr.log');
-            }
-        } else {
-            $logger = new NullLogger;
-        }
-
         $isCategoryPage = Mage::helper('integernet_solr')->page()->isCategoryPage();
-        $applicationContext = new ApplicationContext(
-            $this->_getAttributeRepository(),
-            $config->getResultsConfig(),
-            $config->getAutosuggestConfig(),
-            $this->_getEventDispatcher(),
-            $logger
-        );
+        $applicationContext = $this->getApplicationContext();
         if (Mage::app()->getLayout() && $block = Mage::app()->getLayout()->getBlock('product_list_toolbar')) {
             $pagination = $this->_bridgeFactory->createPaginationToolbar($block);
             $applicationContext->setPagination($pagination);
@@ -131,7 +115,7 @@ class IntegerNet_Solr_Helper_Factory implements SolrRequestFactory
                     break;
                 default:
                     $applicationContext
-                        ->setFuzzyConfig($config->getFuzzySearchConfig())
+                        ->setFuzzyConfig($this->getCurrentStoreConfig()->getFuzzySearchConfig())
                         ->setQuery($this->_getSearchTermSynonymHelper());
                     $factory = new SearchRequestFactory(
                         $applicationContext,
@@ -195,6 +179,31 @@ class IntegerNet_Solr_Helper_Factory implements SolrRequestFactory
     protected function _getIndexCategoryRepository()
     {
         return $this->_bridgeFactory->getIndexCategoryRepository();
+    }
+
+    /**
+     * @return ApplicationContext
+     */
+    public function getApplicationContext()
+    {
+        $config = $this->getCurrentStoreConfig();
+        if ($config->getGeneralConfig()->isLog()) {
+            $logger = $this->_getLogger();
+            if ($logger instanceof IntegerNet_Solr_Helper_Log) {
+                $logger->setFile('solr.log');
+            }
+        } else {
+            $logger = new NullLogger;
+        }
+
+        $applicationContext = new ApplicationContext(
+            $this->_getAttributeRepository(),
+            $config->getResultsConfig(),
+            $config->getAutosuggestConfig(),
+            $this->_getEventDispatcher(),
+            $logger
+        );
+        return $applicationContext;
     }
 
     /**

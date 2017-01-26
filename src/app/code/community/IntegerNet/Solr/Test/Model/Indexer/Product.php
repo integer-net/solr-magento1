@@ -14,7 +14,7 @@ use IntegerNet\Solr\Resource\ResourceFacade;
  * @loadFixture registry
  * @loadFixture config
  */
-class IntegerNet_Solr_Test_Model_Indexer_Product extends EcomDev_PHPUnit_Test_Case_Controller
+class IntegerNet_Solr_Test_Model_Indexer_Product extends IntegerNet_Solr_Test_Controller_Abstract
 {
     /**
      * @param array $config
@@ -41,6 +41,8 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends EcomDev_PHPUnit_Test_Ca
      */
     public function saveProductShouldUpdateSolrIndex()
     {
+        $this->setUpFreshIndex();
+
         $this->setCurrentStore(0);
         $this->adminSession();
         $productId = 21001;
@@ -71,5 +73,12 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends EcomDev_PHPUnit_Test_Ca
             $storeId
         );
         return $searchRequestFactory->createRequest()->doRequest();
+    }
+
+    private function setUpFreshIndex()
+    {
+        Mage::getModel('integernet_solr/indexer')->reindexAll();
+        $indexProcess = Mage::getModel('index/process')->load('integernet_solr', 'indexer_code');
+        $indexProcess->setMode(Mage_Index_Model_Process::MODE_REAL_TIME)->save();
     }
 }

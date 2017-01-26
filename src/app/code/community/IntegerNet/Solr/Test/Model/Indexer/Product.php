@@ -43,9 +43,9 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends EcomDev_PHPUnit_Test_Ca
     {
         $this->setCurrentStore(0);
         $this->adminSession();
-        $productId = 1;
+        $productId = 21001;
         $product = Mage::getModel('catalog/product')->load($productId);
-        $product->setData('name', 'Product One SUPERDUPER');
+        $product->setData('name', 'SUPERDUPER');
         $product->save();
         $searchResponse = $this->searchFor('SUPERDUPER');
         $this->assertCount(1, $searchResponse->documents());

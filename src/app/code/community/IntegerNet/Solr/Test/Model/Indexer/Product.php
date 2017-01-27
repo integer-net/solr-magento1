@@ -43,13 +43,13 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends IntegerNet_Solr_Test_Co
     {
         $this->setUpFreshIndex();
 
-        $this->setCurrentStore(0);
-        $this->adminSession();
+        $this->assertCount(0, $this->searchInStore(1, 'SUPERDUPER')->documents());
         $productId = 21001;
+        $this->setCurrentStore(0);
         $product = Mage::getModel('catalog/product')->load($productId);
         $product->setData('name', 'SUPERDUPER');
         $product->save();
-        $searchResponse = $this->searchFor('SUPERDUPER');
+        $searchResponse = $this->searchInStore(1, 'SUPERDUPER');
         $this->assertCount(1, $searchResponse->documents());
     }
 
@@ -57,9 +57,8 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends IntegerNet_Solr_Test_Co
      * @param $queryText
      * @return \IntegerNet\Solr\Resource\SolrResponse
      */
-    public function searchFor($queryText)
+    public function searchInStore($storeId, $queryText)
     {
-        $storeId = 1;
         $queryStub = $this->getMockBuilder(\IntegerNet\Solr\Implementor\HasUserQuery::class)
             ->getMockForAbstractClass();
         $queryStub->method('getUserQueryText')->willReturn($queryText);
@@ -79,7 +78,5 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends IntegerNet_Solr_Test_Co
     private function setUpFreshIndex()
     {
         Mage::getModel('integernet_solr/indexer')->reindexAll();
-        $indexProcess = Mage::getModel('index/process')->load('integernet_solr', 'indexer_code');
-        $indexProcess->setMode(Mage_Index_Model_Process::MODE_REAL_TIME)->save();
     }
 }

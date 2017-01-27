@@ -67,6 +67,7 @@ class IntegerNet_Solr_Test_Model_Indexer_Product extends IntegerNet_Solr_Test_Co
         $applicationContext = $factory->getApplicationContext();
         $applicationContext->setFuzzyConfig($factory->getCurrentStoreConfig()->getFuzzySearchConfig());
         $applicationContext->setQuery($queryStub);
+        $applicationContext->setPagination(new \IntegerNet\Solr\Request\SinglePage(2));
         $searchRequestFactory = new \IntegerNet\Solr\Request\SearchRequestFactory(
             $applicationContext,
             $factory->getSolrResource(),

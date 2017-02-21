@@ -58,6 +58,7 @@ class IntegerNet_Solr_Model_Bridge_StoreEmulation implements StoreEmulation
 
         if ($this->_isEmulated && $this->_initialEnvironmentInfo) {
             Mage::getSingleton('core/app_emulation')->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
+            $this->_isEmulated = false;
         }
     }
 

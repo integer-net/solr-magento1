@@ -7,6 +7,9 @@ registry:
     - integernet_solr/factory
     - integernet_solr/log
   singleton:
+    - eav/config
+    - core/app_emulation
+    - core/factory
     - catalog/layer
     - core/session
     - customer/session

@@ -52,6 +52,13 @@ class IntegerNet_Solr_Model_Bridge_ProductRepository implements ProductRepositor
         foreach ($groupedResourceTypeModel->getChildrenIdsForMultipleParents($productIds) as $parentId => $childrenIds) {
             $associations[$parentId] = $childrenIds;
         }
+        
+        /** @var $bundleResourceTypeModel IntegerNet_Solr_Model_Resource_Catalog_Product_Type_Bundle */
+        $bundleResourceTypeModel = Mage::getResourceModel('integernet_solr/catalog_product_type_bundle');
+        // Don't use array_merge here due to performance reasons
+        foreach ($bundleResourceTypeModel->getChildrenIdsForMultipleParents($productIds) as $parentId => $childrenIds) {
+            $associations[$parentId] = $childrenIds;
+        }
         return array_combine(array_keys($associations), array_map(
             function($parentId, $childrenIds) {
                 return new \IntegerNet\Solr\Indexer\Data\ProductAssociation($parentId, $childrenIds);

@@ -9,6 +9,11 @@
  */
 class IntegerNet_Solr_Model_Resource_Catalog_Product_Indexing_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+    public function isEnabledFlat()
+    {
+        return false;
+    }
+
     /**
      * Join Product Price Table
      * Join left by default in order to include products without price index entry

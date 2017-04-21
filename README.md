@@ -99,4 +99,4 @@ It offers more features, such as an extensive autosuggest window, multiselect fi
 categories loaded via Solr and support of Magento Enterprise Edition. For more information, please visit our 
 [website](https://www.integer-net.com/solr-magento/).
 
-[![Upgrade to IntegerNet_Solr Pro](src/skin/adminhtml/default/default/integernet/solr/solr_free_banner_upgrade_to_pro.png)](https://www.integer-net.com/solr-magento/features/?utm_source=readme&utm_medium=banner&utm_term=features&utm_content=features&utm_campaign=upgrade)
+[![Upgrade to IntegerNet_Solr Pro](src/skin/adminhtml/default/default/integernet/solr/solr_free_banner_upgrade_to_pro.png)](http://integernet-solr.com/features/?utm_source=readme&utm_medium=banner&utm_term=features&utm_content=features&utm_campaign=upgrade)

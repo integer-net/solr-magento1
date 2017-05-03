@@ -20,13 +20,17 @@ class IntegerNet_Solr_Model_Catalog_Layer extends Mage_Catalog_Model_Layer
             return parent::getProductCollection();
         }
 
-        if (isset($this->_productCollections[$this->getCurrentCategory()->getId()])) {
-            $collection = $this->_productCollections[$this->getCurrentCategory()->getId()];
-        } else {
-            $collection = Mage::getModel('integernet_solr/result_collection');
-            $this->_productCollections[$this->getCurrentCategory()->getId()] = $collection;
+        $category = $this->getCurrentCategory();
+
+        if ($category->getData('solr_exclude')) {
+            return parent::getProductCollection();
         }
-        return $collection;
+
+        if (! isset($this->_productCollections[$category->getId()])) {
+            $this->_productCollections[$category->getId()] = Mage::getModel('integernet_solr/result_collection');
+        }
+
+        return $this->_productCollections[$category->getId()];
     }
 
     /**

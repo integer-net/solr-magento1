@@ -107,7 +107,7 @@ class IntegerNet_Solr_Model_Bridge_Category implements Category, SuggestCategory
         array_shift($pathIds);
         array_pop($pathIds);
         foreach($pathIds as $pathId) {
-            $pathParts[] = $this->_category->getResource()->getAttributeRawValue($pathId, 'name', $this->getStoreId());
+            $pathParts[] = Mage::getResourceModel('catalog/category')->getAttributeRawValue($pathId, 'name', $this->getStoreId());
         }
         return implode($separator, $pathParts);
     }

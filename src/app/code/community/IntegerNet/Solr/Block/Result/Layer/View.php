@@ -134,7 +134,7 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
     {
         $filter = new Varien_Object();
         $filter->setName($attribute->getStoreLabel());
-        $filter->setItemsCount(sizeof($attributeFacets));
+        $filter->setItemsCount(sizeof(array_filter($attributeFacets)));
         $filter->setIdentifier($attribute->getAttributeCode());
         $filter->setHtml(
             $this->_getFilterBlock()
@@ -155,7 +155,7 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
     {
         $filter = new Varien_Object();
         $filter->setName($attribute->getStoreLabel());
-        $filter->setItemsCount(sizeof($attributeFacetData));
+        $filter->setItemsCount(sizeof(array_filter($attributeFacetData)));
         $filter->setIdentifier($attribute->getAttributeCode());
         $filter->setHtml(
             $this->_getFilterBlock()
@@ -176,7 +176,7 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
     {
         $filter = new Varien_Object();
         $filter->setName($attribute->getStoreLabel());
-        $filter->setItemsCount(sizeof($attributeFacetData['counts']));
+        $filter->setItemsCount(sizeof(array_filter($attributeFacetData['counts'])));
         $filter->setIdentifier($attribute->getAttributeCode());
         $filter->setHtml(
             $this->_getFilterBlock()
@@ -196,7 +196,7 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
     {
         $filter = new Varien_Object();
         $filter->setName(Mage::helper('catalog')->__('Category'));
-        $filter->setItemsCount(sizeof($categoryFacets));
+        $filter->setItemsCount(sizeof(array_filter($categoryFacets)));
         $filter->setIdentifier('category');
 
         /** @var IntegerNet_Solr_Block_Result_Layer_Filter $filterBlock */

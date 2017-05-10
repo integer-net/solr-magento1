@@ -72,9 +72,9 @@ class IntegerNet_Solr_Model_Bridge_ProductRepository implements ProductRepositor
      */
     public function getAllProductIds($sliceId = null, $totalNumberSlices = null)
     {
+        /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
         $productCollection = Mage::getResourceModel('catalog/product_collection');
 
-        /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
         if ((!is_null($sliceId)) && (!is_null($totalNumberSlices))) {
             if ($sliceId == $totalNumberSlices) {
                 $sliceId = 0;

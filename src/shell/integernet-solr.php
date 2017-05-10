@@ -55,11 +55,11 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
 
                     $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
 
-                    if ($this->getArg('use-swap-core')) {
+                    if ($this->getArg('use_swap_core')) {
                         $indexer->activateSwapCore();
                     }
                     $indexer->reindex(null, $emptyIndex, $storeIds, $sliceId, $totalNumberSlices);
-                    if ($this->getArg('use-swap-core')) {
+                    if ($this->getArg('use_swap_core')) {
                         $indexer->deactivateSwapCore();
                     }
 
@@ -94,8 +94,14 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
             }
             $storeIds = $this->_getStoreIds($storeIdentifiers);
             $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
+            if ($this->getArg('use_swap_core')) {
+                $indexer->activateSwapCore();
+            }
             foreach($storeIds as $storeId) {
                 $indexer->clearIndex($storeId);
+            }
+            if ($this->getArg('use_swap_core')) {
+                $indexer->deactivateSwapCore();
             }
             $storeIdsString = implode(', ', $storeIds);
             echo "Solr product index cleared for Stores {$storeIdsString}.\n";
@@ -131,7 +137,7 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
 Usage:  php -f integernet-solr.php -- [options]
         php -f integernet-solr.php -- reindex --stores de
         php -f integernet-solr.php -- reindex --stores all --emptyindex
-        php -f integernet-solr.php -- reindex --stores 1 --slice 1/5 --use-swap-core
+        php -f integernet-solr.php -- reindex --stores 1 --slice 1/5 --use_swap_core
         php -f integernet-solr.php -- clear --stores 1
 
   reindex           Reindex solr for given stores (see "stores" param)
@@ -140,11 +146,11 @@ Usage:  php -f integernet-solr.php -- [options]
   --noemptyindex    Force not emptying the solr index for the given store(s). If not set, configured value is used.
   --types <types>   Restrict indexing to certain entity types, i.e. "product", "category" or "page" (comma separated). Or "all". If not set, reindex products.
   --slice <number>/<total_number>, i.e. "1/5" or "2/5". Use this if you want to index only a part of the products, i.e. for letting indexing run in parallel (for products only).
-  --use-swap-core   Use swap core for indexing instead of live core (only if configured correctly). This is useful when using slices (see above), it's not needed otherwise.
+  --use_swap_core   Use swap core for indexing instead of live solr core (only if configured correctly) (for products only). This is useful if using slices (see above), it's not needed otherwise.
   
-  clear             Clear solr product index for given stores (see "stores" param)
+  clear             Clear solr product index for given stores (see "stores" param and "use_swap_core" param)
   
-  swap-cores        Swap cores. This is useful when using slices (see above) after indexing with the "--use-swap-core" param, it's not needed otherwise. See "stores" param.
+  swap-cores        Swap cores. This is useful if using slices (see above) after indexing with the "--use_swap_core" param; it's not needed otherwise. See "stores" param.
   
   help              This help
 

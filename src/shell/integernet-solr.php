@@ -32,6 +32,12 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
                 $entityTypes = explode(',', $entityTypes);
             }
 
+            $sliceId = null;
+            $totalNumberSlices = null;
+            if ($sliceArg = $this->getArg('slice')) {
+                list($sliceId, $totalNumberSlices) = explode('/', $sliceArg);
+            }
+
             $emptyIndex = true;
             if ($this->getArg('emptyindex')) {
                 $emptyIndex = 'force';
@@ -43,11 +49,25 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
             $autoloader->createAndRegister();
 
             try {
+                $this->_checkSliceArgument($sliceArg);
+
                 if (in_array('product', $entityTypes)) {
+
                     $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
-                    $indexer->reindex(null, $emptyIndex, $storeIds);
+
+                    if ($this->getArg('use-swap-core')) {
+                        $indexer->activateSwapCore();
+                    }
+                    $indexer->reindex(null, $emptyIndex, $storeIds, $sliceId, $totalNumberSlices);
+                    if ($this->getArg('use-swap-core')) {
+                        $indexer->deactivateSwapCore();
+                    }
+
                     $storeIdsString = implode(', ', $storeIds);
                     echo "Solr product index rebuilt for Stores {$storeIdsString}.\n";
+                    if (!is_null($sliceId) && !is_null($totalNumberSlices)) {
+                        echo '(Slice ' . $sliceId . ' of ' . $totalNumberSlices . ')' . "\n";
+                    }
                 }
 
                 if (in_array('page', $entityTypes) && $this->_useCmsIndexer()) {
@@ -67,6 +87,35 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
                 echo $e->getMessage() . "\n";
             }
 
+        } else if ($this->getArg('clear')) {
+            $storeIdentifiers = $this->getArg('stores');
+            if (!$storeIdentifiers) {
+                $storeIdentifiers = 'all';
+            }
+            $storeIds = $this->_getStoreIds($storeIdentifiers);
+            $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
+            foreach($storeIds as $storeId) {
+                $indexer->clearIndex($storeId);
+            }
+            $storeIdsString = implode(', ', $storeIds);
+            echo "Solr product index cleared for Stores {$storeIdsString}.\n";
+
+        } else if ($this->getArg('swap_cores')) {
+            $storeIdentifiers = $this->getArg('stores');
+            if (!$storeIdentifiers) {
+                $storeIdentifiers = 'all';
+            }
+            $storeIds = $this->_getStoreIds($storeIdentifiers);
+            $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
+            try {
+                $indexer->checkSwapCoresConfiguration($storeIds);
+                $indexer->swapCores($storeIds);
+                $storeIdsString = implode(', ', $storeIds);
+                echo "Solr cores swapped for Stores {$storeIdsString}.\n";
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
+
         } else {
             echo $this->usageHelp();
         }
@@ -82,12 +131,21 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
 Usage:  php -f integernet-solr.php -- [options]
         php -f integernet-solr.php -- reindex --stores de
         php -f integernet-solr.php -- reindex --stores all --emptyindex
+        php -f integernet-solr.php -- reindex --stores 1 --slice 1/5 --use-swap-core
+        php -f integernet-solr.php -- clear --stores 1
 
-  reindex           reindex solr for given stores (see "stores" param)
-  --stores <stores> reindex given stores (can be store id, store code, comma seperated. Or "all".) If not set, reindex all stores.
+  reindex           Reindex solr for given stores (see "stores" param)
+  --stores <stores> Reindex given stores (can be store id, store code, comma seperated. Or "all".) If not set, reindex all stores.
   --emptyindex      Force emptying the solr index for the given store(s). If not set, configured value is used.
   --noemptyindex    Force not emptying the solr index for the given store(s). If not set, configured value is used.
   --types <types>   Restrict indexing to certain entity types, i.e. "product", "category" or "page" (comma separated). Or "all". If not set, reindex products.
+  --slice <number>/<total_number>, i.e. "1/5" or "2/5". Use this if you want to index only a part of the products, i.e. for letting indexing run in parallel (for products only).
+  --use-swap-core   Use swap core for indexing instead of live core (only if configured correctly). This is useful when using slices (see above), it's not needed otherwise.
+  
+  clear             Clear solr product index for given stores (see "stores" param)
+  
+  swap-cores        Swap cores. This is useful when using slices (see above) after indexing with the "--use-swap-core" param, it's not needed otherwise. See "stores" param.
+  
   help              This help
 
 USAGE;
@@ -148,6 +206,32 @@ USAGE;
     protected function _useCmsIndexer()
     {
         return Mage::helper('core')->isModuleEnabled('IntegerNet_SolrPro') && Mage::getStoreConfigFlag('integernet_solr/cms/is_active');
+    }
+
+    /**
+     * @param string $sliceArg
+     * @throws InvalidArgumentException
+     */
+    protected function _checkSliceArgument($sliceArg)
+    {
+        if (!strlen($sliceArg)) {
+            return;
+        }
+        if (strpos($sliceArg, '/') < 1) {
+            throw new InvalidArgumentException('The "slice" argument must be of format "1/5" or "20/20"');
+        }
+        list($sliceId, $totalNumberSlices) = explode('/', $sliceArg);
+        $sliceId = intval($sliceId);
+        $totalNumberSlices = intval($totalNumberSlices);
+        if (!is_integer($sliceId) || !is_integer($totalNumberSlices)) {
+            throw new InvalidArgumentException('The "slice" argument must be of format "1/5" or "20/20", only containing integer numbers before/after the slash.');
+        }
+        if ($totalNumberSlices < 2) {
+            throw new InvalidArgumentException('The "slice" argument must be of format "1/5" or "20/20". The second number must be higher than 1.');
+        }
+        if ($sliceId < 1 || $sliceId > $totalNumberSlices) {
+            throw new InvalidArgumentException('The "slice" argument must be of format "1/5" or "20/20". The first number is invalid, should be between 1 and the second number (including those).');
+        }
     }
 }
 

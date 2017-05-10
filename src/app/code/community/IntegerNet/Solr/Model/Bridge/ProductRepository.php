@@ -66,12 +66,22 @@ class IntegerNet_Solr_Model_Bridge_ProductRepository implements ProductRepositor
     }
 
     /**
+     * @param null|int $sliceId
+     * @param null|int $totalNumberSlices
      * @return int[]
      */
-    public function getAllProductIds()
+    public function getAllProductIds($sliceId = null, $totalNumberSlices = null)
     {
-        /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
         $productCollection = Mage::getResourceModel('catalog/product_collection');
+
+        /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
+        if ((!is_null($sliceId)) && (!is_null($totalNumberSlices))) {
+            if ($sliceId == $totalNumberSlices) {
+                $sliceId = 0;
+            }
+            $productCollection->getSelect()->where('e.entity_id % ' . intval($totalNumberSlices) . ' = ' . intval($sliceId));
+        }
+
         return $productCollection->getAllIds();
     }
 

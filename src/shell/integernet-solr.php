@@ -32,12 +32,6 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
                 $entityTypes = explode(',', $entityTypes);
             }
 
-            $sliceId = null;
-            $totalNumberSlices = null;
-            if ($sliceArg = $this->getArg('slice')) {
-                list($sliceId, $totalNumberSlices) = explode('/', $sliceArg);
-            }
-
             $emptyIndex = true;
             if ($this->getArg('emptyindex')) {
                 $emptyIndex = 'force';
@@ -49,25 +43,11 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
             $autoloader->createAndRegister();
 
             try {
-                $this->_checkSliceArgument($sliceArg);
-
                 if (in_array('product', $entityTypes)) {
-
                     $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
-
-                    if ($this->getArg('use_swap_core')) {
-                        $indexer->activateSwapCore();
-                    }
-                    $indexer->reindex(null, $emptyIndex, $storeIds, $sliceId, $totalNumberSlices);
-                    if ($this->getArg('use_swap_core')) {
-                        $indexer->deactivateSwapCore();
-                    }
-
+                    $indexer->reindex(null, $emptyIndex, $storeIds);
                     $storeIdsString = implode(', ', $storeIds);
                     echo "Solr product index rebuilt for Stores {$storeIdsString}.\n";
-                    if (!is_null($sliceId) && !is_null($totalNumberSlices)) {
-                        echo '(Slice ' . $sliceId . ' of ' . $totalNumberSlices . ')' . "\n";
-                    }
                 }
 
                 if (in_array('page', $entityTypes) && $this->_useCmsIndexer()) {
@@ -83,6 +63,38 @@ class IntegerNet_Solr_Shell extends Mage_Shell_Abstract
                     $storeIdsString = implode(', ', $storeIds);
                     echo "Solr category index rebuilt for Stores {$storeIdsString}.\n";
                 }
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
+
+        } else if ($this->getArg('reindex_slice')) {
+            $storeIdentifiers = $this->getArg('stores');
+            if (!$storeIdentifiers) {
+                $storeIdentifiers = 'all';
+            }
+            $storeIds = $this->_getStoreIds($storeIdentifiers);
+
+            $autoloader = new IntegerNet_Solr_Helper_Autoloader();
+            $autoloader->createAndRegister();
+
+            try {
+                $sliceArg = $this->getArg('slice');
+                $this->_checkSliceArgument($sliceArg);
+                list($sliceId, $totalNumberSlices) = explode('/', $sliceArg);
+
+                $indexer = Mage::helper('integernet_solr')->factory()->getProductIndexer();
+
+                if ($this->getArg('use_swap_core')) {
+                    $indexer->activateSwapCore();
+                }
+                $indexer->reindex(null, false, $storeIds, $sliceId, $totalNumberSlices);
+                if ($this->getArg('use_swap_core')) {
+                    $indexer->deactivateSwapCore();
+                }
+
+                $storeIdsString = implode(', ', $storeIds);
+                echo "Solr product index rebuilt for Stores {$storeIdsString}.\n";
+                echo '(Slice ' . $sliceId . ' of ' . $totalNumberSlices . ')' . "\n";
             } catch (Exception $e) {
                 echo $e->getMessage() . "\n";
             }
@@ -145,12 +157,18 @@ Usage:  php -f integernet-solr.php -- [options]
   --emptyindex      Force emptying the solr index for the given store(s). If not set, configured value is used.
   --noemptyindex    Force not emptying the solr index for the given store(s). If not set, configured value is used.
   --types <types>   Restrict indexing to certain entity types, i.e. "product", "category" or "page" (comma separated). Or "all". If not set, reindex products.
-  --slice <number>/<total_number>, i.e. "1/5" or "2/5". Use this if you want to index only a part of the products, i.e. for letting indexing run in parallel (for products only).
-  --use_swap_core   Use swap core for indexing instead of live solr core (only if configured correctly) (for products only). This is useful if using slices (see above), it's not needed otherwise.
+
+  reindex_slice     Reindex solr for given stores (see "stores" param). Use this if you want to index only a part of the products, i.e. for letting indexing run in parallel (for products only).
+  --slice <number>/<total_number>, i.e. "1/5" or "2/5". 
+  --stores <stores> Reindex given stores (can be store id, store code, comma seperated. Or "all".) If not set, reindex all stores.
+  --use_swap_core   Use swap core for indexing instead of live solr core (only if configured correctly).
   
   clear             Clear solr product index for given stores (see "stores" param and "use_swap_core" param)
+  --stores <stores> Reindex given stores (can be store id, store code, comma seperated. Or "all".) If not set, reindex all stores.
+  --use_swap_core   Use swap core for clearing instead of live solr core (only if configured correctly).
   
-  swap-cores        Swap cores. This is useful if using slices (see above) after indexing with the "--use_swap_core" param; it's not needed otherwise. See "stores" param.
+  swap_cores        Swap cores. This is useful if using slices (see above) after indexing with the "--use_swap_core" param; it's not needed otherwise.
+  --stores <stores> Reindex given stores (can be store id, store code, comma seperated. Or "all".) If not set, reindex all stores.
   
   help              This help
 
@@ -221,7 +239,7 @@ USAGE;
     protected function _checkSliceArgument($sliceArg)
     {
         if (!strlen($sliceArg)) {
-            return;
+            throw new InvalidArgumentException('The "slice" argument must be given.');
         }
         if (strpos($sliceArg, '/') < 1) {
             throw new InvalidArgumentException('The "slice" argument must be of format "1/5" or "20/20"');

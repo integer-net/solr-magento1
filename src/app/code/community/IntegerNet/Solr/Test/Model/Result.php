@@ -95,7 +95,7 @@ class IntegerNet_Solr_Test_Model_Result extends EcomDev_PHPUnit_Test_Case_Contro
             )
         );
         $logMock->expects($this->at(4))->method('debug')->with(
-            'Filter Query: store_id:1 AND is_visible_in_search_i:1');
+            'Filter Query: content_type:product AND store_id:1 AND is_visible_in_search_i:1');
 
         /* @var Mage_Core_Block_Text $toolbar Not using actual toolbar block which reads from session */
         $toolbar = $this->app()->getLayout()->createBlock('core/text', 'product_list_toolbar');

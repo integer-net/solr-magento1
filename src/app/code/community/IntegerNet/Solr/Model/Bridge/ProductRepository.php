@@ -70,6 +70,9 @@ class IntegerNet_Solr_Model_Bridge_ProductRepository implements ProductRepositor
      */
     public function getAllProductIds()
     {
+        // Fixes a bug with flat product collections called for different stores, see https://magento.stackexchange.com/q/30956/2207
+        Mage::unregister('_resource_singleton/catalog/product_flat');
+
         /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
         $productCollection = Mage::getResourceModel('catalog/product_collection');
         return $productCollection->getAllIds();

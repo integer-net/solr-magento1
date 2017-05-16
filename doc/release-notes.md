@@ -24,4 +24,24 @@ Version 1.7.1 (May 3, 2017)
 Version 1.7.0 (Oct 12, 2016)
 ---------------
 
-- First public release of IntegerNet_Solr
+- First public release of IntegerNet_Solr Free
+
+Version 1.6.0 (Aug 1, 2016)
+---------------
+
+- Improved search algorithm, e.g. for search terms containing both words and numbers
+- Category and CMS pages in autosuggest results
+- More configuration options for filters
+- Improved compatibility with other third party extensions
+
+Version 1.5.0 (Mar 7, 2016)
+---------------
+
+This is a completely refactored version. Plus, we added quite a number of new features, improving usability, search results and SEO:    
+
+- Select multiple filter values
+- Horizontal display of filters on search result pages
+- Select per category which filters shall be available
+- Configurable meta robots tag (NOINDEX, NOFOLLOW) for search result pages, filtered search results and filtered category pages
+- Adjustable boost for products in search results if they are in a category whose name matches the search term
+- Direct redirects to a product or category page if the search term is an exact match with the product name, SKU, category name, or a different attribute of your choice

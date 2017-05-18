@@ -2,6 +2,11 @@ IntegerNet_Solr Free for Magento 1
 ===============
 Release Notes
 
+Version 1.7.3 (May 18, 2017)
+---------------
+
+- Bugfix regarding RWD theme
+
 Version 1.7.2 (May 16, 2017)
 ---------------
 

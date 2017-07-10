@@ -15,6 +15,7 @@ $installer->startSetup();
 
 $installer->setConfigData('integernet_solr/results/show_outofstock', Mage::getStoreConfig('cataloginventory/options/show_out_of_stock'));
 $installer->setConfigData('integernet_solr/autosuggest/show_outofstock', Mage::getStoreConfig('cataloginventory/options/show_out_of_stock'));
+$installer->setConfigData('integernet_solr/category/show_outofstock', Mage::getStoreConfig('cataloginventory/options/show_out_of_stock'));
 
 Mage::getModel('index/process')
     ->load('integernet_solr', 'indexer_code')

@@ -265,7 +265,8 @@ final class IntegerNet_Solr_Model_Config_Store implements Config
                 $this->_getConfigFlag($prefix . 'use_in_search_results'),
                 intval($this->_getConfig($prefix . 'max_number_results')),
                 $this->_getConfigFlag($prefix . 'fuzzy_is_active'),
-                floatval($this->_getConfig($prefix . 'fuzzy_sensitivity'))
+                floatval($this->_getConfig($prefix . 'fuzzy_sensitivity')),
+                $this->_getConfig($prefix . 'show_outofstock')
             );
         }
         return $this->_category;

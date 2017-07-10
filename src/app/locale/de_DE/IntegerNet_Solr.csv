@@ -107,3 +107,6 @@
 "Sort Filter Options alphabetically","Filteroptionen alphabetisch sortieren"
 "By default, filters are sorted by number of results.","Filter sind standardmäßig nach Anzahl der Treffer sortiert."
 "Show category filter","Kategorie-Filter anzeigen"
+"Show products which are out of stock","Produkte anzeigen, die nicht auf Lager sind"
+"Solr Priority Multiplier for Products being out of Stock","Solr-Prioritäts-Multiplikator für ausverkaufte Produkte"
+"0 = don't show at all, 1 = don't modify, anything between = lower priority","0 = gar nicht anzeigen, 1 = wie Produkte auf Lager, alles dazwischen = niedrigere Priorität"

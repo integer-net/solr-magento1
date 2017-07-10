@@ -163,7 +163,8 @@ final class IntegerNet_Solr_Model_Config_Store implements Config
                 $this->_getConfig($prefix . 'max_number_cms_page_suggestions'),
                 $this->_getConfigFlag($prefix . 'show_complete_category_path'),
                 $this->_getConfig($prefix . 'category_link_type'),
-                @unserialize($this->_getConfig($prefix . 'attribute_filter_suggestions'))
+                @unserialize($this->_getConfig($prefix . 'attribute_filter_suggestions')),
+                $this->_getConfig($prefix . 'show_outofstock')
             );
         }
         return $this->_autosuggest;
@@ -222,7 +223,7 @@ final class IntegerNet_Solr_Model_Config_Store implements Config
                 $this->_getConfig($prefix . 'max_price'),
                 $this->_getConfigFlag($prefix . 'use_custom_price_intervals'),
                 explode(',', $this->_getConfig($prefix . 'custom_price_intervals')),
-                $this->_getConfigFlag($prefix . 'show_category_filter')
+                $this->_getConfig($prefix . 'show_outofstock')
             );
         }
         return $this->_results;

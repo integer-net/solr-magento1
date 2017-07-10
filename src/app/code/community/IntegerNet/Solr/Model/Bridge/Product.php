@@ -65,7 +65,14 @@ class IntegerNet_Solr_Model_Bridge_Product implements Product
 
     public function getSolrBoost()
     {
-        return $this->_product->getData('solr_boost');
+        $boost = $this->_product->getData('solr_boost');
+        if (!$this->isInStock()) {
+            if ($boost === null) {
+                $boost = 1;
+            }
+            $boost *= floatval(Mage::getStoreConfig('integernet_solr/results/priority_outofstock'));
+        }
+        return $boost;
     }
 
     public function getPrice()
@@ -133,18 +140,6 @@ class IntegerNet_Solr_Model_Bridge_Product implements Product
         if (!in_array($this->_product->getStore()->getWebsiteId(), $this->_product->getWebsiteIds())) {
             return false;
         }
-        if (!Mage::helper('cataloginventory')->isShowOutOfStock()) {
-            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
-            if (!$this->_product->getStockItem()) {
-                $stockItem = Mage::getModel('cataloginventory/stock_item')
-                    ->loadByProduct($this->_product->getId());
-                $this->_product->setStockItem($stockItem);
-            }
-
-            if (!$this->_product->getStockItem()->getIsInStock()) {
-                return false;
-            }
-        }
         return true;
 
     }
@@ -158,5 +153,20 @@ class IntegerNet_Solr_Model_Bridge_Product implements Product
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_product, $method), $args);
+    }
+
+    /**
+     * return boolean
+     */
+    public function isInStock()
+    {
+        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+        if (!$this->_product->getStockItem()) {
+            $stockItem = Mage::getModel('cataloginventory/stock_item')
+                ->loadByProduct($this->_product->getId());
+            $this->_product->setStockItem($stockItem);
+        }
+
+        return $this->_product->getStockItem()->getIsInStock();
     }
 }

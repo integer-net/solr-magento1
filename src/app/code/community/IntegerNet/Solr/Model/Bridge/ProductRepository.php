@@ -66,12 +66,25 @@ class IntegerNet_Solr_Model_Bridge_ProductRepository implements ProductRepositor
     }
 
     /**
+     * @param null|int $sliceId
+     * @param null|int $totalNumberSlices
      * @return int[]
      */
-    public function getAllProductIds()
+    public function getAllProductIds($sliceId = null, $totalNumberSlices = null)
     {
+        // Fixes a bug with flat product collections called for different stores, see https://magento.stackexchange.com/q/30956/2207
+        Mage::unregister('_resource_singleton/catalog/product_flat');
+
         /** @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
         $productCollection = Mage::getResourceModel('catalog/product_collection');
+
+        if ((!is_null($sliceId)) && (!is_null($totalNumberSlices))) {
+            if ($sliceId == $totalNumberSlices) {
+                $sliceId = 0;
+            }
+            $productCollection->getSelect()->where('e.entity_id % ' . intval($totalNumberSlices) . ' = ' . intval($sliceId));
+        }
+
         return $productCollection->getAllIds();
     }
 

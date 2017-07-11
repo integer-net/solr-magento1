@@ -1,14 +1,6 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 
-    <default>
-        <reference name="head">
-            <action method="addCss" ifconfig="integernet_solr/general/is_active">
-                <stylesheet>integernet/solr/css/autosuggest.css</stylesheet>
-            </action>
-        </reference>
-    </default>
-
     <catalogsearch_result_index>
         <reference name="head">
             <action method="addItem" ifconfig="integernet_solr/general/is_active">
@@ -114,9 +106,6 @@
             <action method="setListOrders"/>
             <action method="setListModes"/>
             <action method="setListCollection"/>
-        </reference>
-        <reference name="before_body_end">
-            <block type="integernet_solr/js" name="solr.js" template="integernet/solr/js.phtml" />
         </reference>
     </catalog_category_layered>
 

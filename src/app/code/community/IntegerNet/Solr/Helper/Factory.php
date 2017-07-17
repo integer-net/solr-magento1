@@ -101,6 +101,8 @@ class IntegerNet_Solr_Helper_Factory implements SolrRequestFactory
                 $this->getSolrResource(),
                 $storeId);
         } elseif ($isCategoryPage) {
+            $applicationContext
+                ->setCategoryConfig($this->getCurrentStoreConfig()->getCategoryConfig());
             $factory = new CategoryRequestFactory(
                 $applicationContext,
                 $this->getSolrResource(),

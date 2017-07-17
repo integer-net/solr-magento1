@@ -2,7 +2,7 @@
 <config>
     <modules>
         <IntegerNet_Solr>
-            <version>1.7.3</version>
+            <version>1.7.4</version>
             <version_suffix />
         </IntegerNet_Solr>
     </modules>
@@ -257,6 +257,8 @@
                 <filter_position>1</filter_position>
                 <show_category_filter>1</show_category_filter>
                 <priority_categories>2</priority_categories>
+                <show_outofstock>1</show_outofstock>
+                <priority_outofstock>1</priority_outofstock>
                 <max_number_filter_options>0</max_number_filter_options>
                 <price_step_size>10</price_step_size>
                 <max_price>200</max_price>

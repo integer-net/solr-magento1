@@ -2,6 +2,12 @@ IntegerNet_Solr Free for Magento 1
 ===============
 Release Notes
 
+Version 1.7.4 (Jul 17, 2017)
+---------------
+
+- Choose if you want to display products which are not on stock via a new configuration setting
+- Configure the score multiplier for products which are not on stock 
+
 Version 1.7.3 (May 18, 2017)
 ---------------
 

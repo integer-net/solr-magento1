@@ -5,7 +5,7 @@
   "homepage": "https://github.com/integer-net/solr-magento1",
   "require": {
     "aoepeople/aoe_layoutconditions": "~1.0.0",
-    "integer-net/solr-base": "~2.0.0"
+    "integer-net/solr-base": "dev-solr-priority-for-outofstock-products"
   },
   "require-dev": {
     "ecomdev/ecomdev_phpunit": "dev-dev",

@@ -27,7 +27,7 @@ class IntegerNet_Solr_Model_Resource_Db
         }
 
         /** @var Zend_Db_Adapter_Abstract $connection */
-        foreach (Mage::getSingleton('core/resource')->getConnections() as $name => $connection) {
+        foreach ($coreResource->getConnections() as $name => $connection) {
             if ($connection instanceof Zend_Db_Adapter_Abstract) {
                 if ($this->isTransactionOpen($connection)) {
                     continue;

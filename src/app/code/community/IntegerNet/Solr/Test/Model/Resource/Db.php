@@ -10,6 +10,7 @@
 
 /**
  * @loadFixture registry
+ * @loadFixture config
  * @doNotIndexAll
  */
 class IntegerNet_Solr_Test_Model_Resource_Db extends EcomDev_PHPUnit_Test_Case

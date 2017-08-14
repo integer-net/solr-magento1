@@ -16,8 +16,18 @@ class IntegerNet_Solr_Model_Resource_Db
      */
     public function disconnectMysql()
     {
+        if (!Mage::getStoreConfigFlag('integernet_solr/indexing/disconnect_mysql_connections')) {
+            return;
+        }
+
+        /** @var $coreResource Mage_Core_Model_Resource */
+        $coreResource = Mage::getSingleton('core/resource');
+        if (!method_exists($coreResource, 'getConnections')) {
+            return; // method only exists from Magento CE 1.9.1 / EE 1.14.1
+        }
+
         /** @var Zend_Db_Adapter_Abstract $connection */
-        foreach (Mage::getSingleton('core/resource')->getConnections() as $name => $connection) {
+        foreach ($coreResource->getConnections() as $name => $connection) {
             if ($connection instanceof Zend_Db_Adapter_Abstract) {
                 if ($this->isTransactionOpen($connection)) {
                     continue;
@@ -25,6 +35,7 @@ class IntegerNet_Solr_Model_Resource_Db
                 $connection->closeConnection();
             }
         }
+
         // connections (adapter objects) must be fully reinitialized, otherwise initStatements are not executed
         Mage::unregister('_singleton/core/resource');
     }

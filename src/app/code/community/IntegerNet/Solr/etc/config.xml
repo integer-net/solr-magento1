@@ -245,6 +245,7 @@
             <indexing>
                 <pagesize>1000</pagesize>
                 <delete_documents_before_indexing>1</delete_documents_before_indexing>
+                <disconnect_mysql_connections>0</disconnect_mysql_connections>
             </indexing>
             <fuzzy>
                 <is_active>1</is_active>

@@ -2,7 +2,7 @@ IntegerNet_Solr Free for Magento 1
 ===============
 Release Notes
 
-Upcoming
+Version 1.7.5 (Aug 14, 2017)
 ---------------
 
 - Make the MySQL connection disconnect/reconnect feature configurable (default: off) 

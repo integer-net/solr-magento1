@@ -268,9 +268,6 @@
                 <product_attributes_redirect>name,sku</product_attributes_redirect>
                 <category_attributes_redirect>name</category_attributes_redirect>
             </results>
-            <seo>
-                <hide_from_robots>search_results_all,search_results_filtered,categories_filtered</hide_from_robots>
-            </seo>
             <dev>
                 <register_autoloader>1</register_autoloader>
                 <autoloader_basepath>lib/IntegerNet_Solr</autoloader_basepath>

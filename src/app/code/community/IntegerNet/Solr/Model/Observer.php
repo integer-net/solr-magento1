@@ -4,7 +4,7 @@
  *
  * @category   IntegerNet
  * @package    IntegerNet_Solr
- * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @copyright  Copyright (c) 2014-2017 integer_net GmbH (http://www.integer-net.de/)
  * @author     Andreas von Studnitz <avs@integer-net.de>
  */ 
 class IntegerNet_Solr_Model_Observer
@@ -76,10 +76,6 @@ class IntegerNet_Solr_Model_Observer
                 'index' => 'solr_boost',
                 'type' => 'number',
             ), 'is_comparable');
-        }
-
-        if ($block instanceof Mage_Page_Block_Html_Head) {
-            $this->_adjustRobots($block);
         }
 
         if ($block instanceof Mage_Page_Block_Html) {
@@ -247,7 +243,7 @@ class IntegerNet_Solr_Model_Observer
         }
 
         if (!sizeof($filters)) {
-            return;
+            return false;
         }
         
         $store = Mage::app()->getStore();
@@ -268,45 +264,6 @@ class IntegerNet_Solr_Model_Observer
         }
 
         return false;
-    }
-
-    /**
-     * Set Robots to NOINDEX,NOFOLLOW depending on config
-     *
-     * @param Mage_Page_Block_Html_Head $block
-     */
-    protected function _adjustRobots($block)
-    {
-        /** @var $helper IntegerNet_Solr_Helper_Data */
-        $helper = Mage::helper('integernet_solr');
-        if (!$helper->module()->isActive()) {
-            return;
-        }
-        $stateBlock = null;
-        $robotOptions = explode(',', Mage::getStoreConfig('integernet_solr/seo/hide_from_robots'));
-        if ($helper->page()->isSearchPage()) {
-            if (in_array('search_results_all', $robotOptions)) {
-                $block->setData('robots', 'NOINDEX,NOFOLLOW');
-                return;
-            }
-            if (!in_array('search_results_filtered', $robotOptions)) {
-                return;
-            }
-            /** @var IntegerNet_Solr_Block_Result_Layer_State $stateBlock */
-            $stateBlock = $block->getLayout()->getBlock('catalogsearch.solr.layer.state');
-        } elseif ($helper->page()->isCategoryPage() && $helper->isCategoryDisplayActive()) {
-            if (!in_array('categories_filtered', $robotOptions)) {
-                return;
-            }
-            /** @var IntegerNet_Solr_Block_Result_Layer_State $stateBlock */
-            $stateBlock = $block->getLayout()->getBlock('catalog.solr.layer.state');
-        }
-        if ($stateBlock instanceof IntegerNet_Solr_Block_Result_Layer_State) {
-            $activeFilters = $stateBlock->getActiveFilters();
-            if (is_array($activeFilters) && sizeof($activeFilters)) {
-                $block->setData('robots', 'NOINDEX,NOFOLLOW');
-            }
-        }
     }
 
     /**

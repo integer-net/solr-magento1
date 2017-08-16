@@ -2,6 +2,11 @@ IntegerNet_Solr Free for Magento 1
 ===============
 Release Notes
 
+Version 1.7.6 (Aug 16, 2017)
+---------------
+
+- Update documentation 
+
 Version 1.7.5 (Aug 14, 2017)
 ---------------
 

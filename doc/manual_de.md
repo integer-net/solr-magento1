@@ -233,6 +233,10 @@ Wenn diese Einstellung aktiv ist, wird der Solr-Index zu Beginn einer vollständ
 
 Wenn Sie regelmäßig den Index neu aufbauen (z. B. nächtlich), ist es sinnvoll, die Funktion zum Tauschen der Kerne einzusetzen und einen zweiten Kern zu verwenden. Aktivieren Sie in dem Fall diese Option und tragen Sie im Feld *Name des Cores, mit dem der aktive Core getauscht werden soll* den Namen des zweiten Kerns ein.
 
+#### MySQL-Verbindungen während der Indizierung trennen und neu aufbauen
+
+Falls während des Indizierungsprozesses Timeout-Fehler auftreten sollten, wird Ihnen diese Konfigurationseinstellung helfen. Auf "Ja" gestellt sorgt sie dafür, dass während der Indizierung die MySQL-Verbindung automatisch getrennt und neu aufgebaut wird. Dieses Feature funktioniert nur bei Magento CE 1.9.1 / EE 1.14.1 oder höheren Versionen.
+
 ### Unscharfe Suche 
 
 ![Unscharfe Suche](http://www.integer-net.de/download/solr/integernet-solr-config-fuzzy-de.png)
@@ -299,6 +303,14 @@ Normalerweise werden die Filteroptionen nach der Anzahl der Treffer sortiert. In
 Hier können Sie einstellen, mit welcher Priorität Kategorienamen im Solr-Index verarbeitet werden. Ein Beispiel: Wenn der Suchbegriff "schwarze Shirts" hauptsächlich solche Artikel im Suchergebnis anzeigen soll, die in der Kategorie "Shirts" enthalten sind, tragen Sie hier einen höheren Wert ein.
 Der Standardwert ist 1. Wenn Sie einen höheren Wert eintragen, werden Kategorienamen im Solr-Index stärker beachtet.
 
+#### Produkte anzeigen, die nicht auf Lager sind
+
+Als Standardeinstellung werden auch Produkte, die nicht auf Lager sind, in den Suchergebnissen angezeigt. Um ausverkaufte Produkte auf den Suchergebnisseiten auszublenden, wählen Sie "Nein".
+
+#### Solr-Prioritäts-Multiplikator für ausverkaufte Produkte
+
+Dieser Faktor beeinflusst, wie sich der Lagerstatus des Produkts auf das Ranking in den Suchergebnissen auswirkt. Wenn Sie es bevorzugen, ausverkaufte Produkte in der Suchergebnisliste anzuzeigen, wählen Sie einen Wert, der größer als 0 ist. Um ausverkaufte Produkte ans Ende der Ergebnisliste zu setzen, geben Sie "0.1" ein. Der Wert "1" bedeutet, dass der Lagerstatus keinen Einfluss auf das Suchergebnis-Ranking hat. 
+
 #### Größe der Preis-Schritte
 
 Diese Einstellung ist für den Preisfilter wichtig. Hier kann man einstellen, in welchen Schritten die einzelnen Intervalle definiert sein sollen. So führt z. B. *10* zu den Intervallen *0,00-10,00*, *10,00-20,00*, *20,00-30,00* usw.
@@ -329,6 +341,10 @@ Wenn Sie keine lineare Einteilung der Intervalle wünschen und mindestens Solr 4
 Das Aktivieren dieser Funktion führt dazu, dass die Produkte auf Kategorieseiten von Solr dargestellt werden. Besonders in Online-Shops mit einer Vielzahl von Produkten oder filterbaren Attributen in der Filternavigation können so die Ladezeiten von Kategorieseiten deutlich verringert werden.
 Wird diese Funktion aktiviert, ist danach eine Reindizierung des Solr Suchindex notwendig, bevor die Änderungen im Frontend des Shops übernommen werden.
 
+#### Produkte anzeigen, die nicht auf Lager sind
+
+Als Standardeinstellung werden auch Produkte, die nicht auf Lager sind, in den Produktlisten der Kategorieseiten angezeigt. Um ausverkaufte Produkte auf den Kategorieseiten auszublenden, wählen Sie "Nein".
+
 #### Position der Filter
 
 Unabhängig von der Position der Filter auf den Suchergebnisseiten können Sie für Kategorien eine andere Anordnung der Filter auswählen. Zur Wahl stehen die Anzeige links neben den Produkten und oberhalb der Produkte.  Dies ist ein Standardwert, der durch eine Konfiguration in der Kategorie selbst überschrieben werden kann.
@@ -337,6 +353,22 @@ Unabhängig von der Position der Filter auf den Suchergebnisseiten können Sie f
 
 Wenn diese Funktion aktiviert ist, werden Kategorien in den Suchvorschlägen angezeigt, deren Namen oder Beschreibungen zum Suchbegriff passen. Für eine feinere Einstellung der vorgeschlagenen Kategorien können Sie einzelne Kategorien vom Index ausschließen.  
 
+#### Kategorien als Suchergebnisse anzeigen
+
+Wenn Sie diesen Wert auf "Ja" setzen, wird auf der Suchergebnisseite ein zusätzlicher Tab mit zum Suchwort passenden Treffern der Kategorieseiten angezeigt.
+
+#### Maximale Anzahl Suchergebnisse
+
+Dieser Wert bestimmt die maximale Anzahl der als Suchergebnisse angezeigten Kategorien.
+
+#### Unscharfe Suche ist aktiv
+
+Möchten Sie die unscharfe Suche bei Kategorieseiten anwenden, dann wählen Sie "Ja". 
+
+#### Sensibilität für Suche
+
+Ist die unscharfe Suche aktiviert, können Sie hier einstellen, wie sensibel sie regiert. Werte zwischen 0 und 1 sind erlaubt, wobei  niedrigere Werte unschärfere Ergebnisse zulassen.
+
 ### CMS
 
 ![CMS-Seiten](http://www.integer-net.com/download/solr/integernet-solr-config-CMS-de.png)
@@ -344,6 +376,22 @@ Wenn diese Funktion aktiviert ist, werden Kategorien in den Suchvorschlägen ang
 #### Solr für die Indizierung von CMS-Seiten verwenden
 
 Um CMS-Seiten in den Suchvorschlägen anzuzeigen, muss diese Funktion aktiviert sein. Sie funktioniert ähnlich wie die oben genannte Indizierung der Kategorien. Für eine feinere Einstellung können auch hier einzelne CMS-Seiten vom Index ausgeschlossen werden.
+
+#### CMS-Seiten als Suchergebnisse anzeigen
+
+Wenn Sie diesen Wert auf "Ja" setzen, wird auf der Suchergebnisseite ein zusätzlicher Tab mit zum Suchwort passenden Treffern der CMS-Seiten angezeigt.
+
+#### Maximale Anzahl Suchergebnisse
+
+Dieser Wert bestimmt die maximale Anzahl der als Suchergebnisse angezeigten CMS-Seiten .
+
+#### Unscharfe Suche ist aktiv
+
+Möchten Sie die unscharfe Suche bei CMS-Seiten anwenden, dann wählen Sie "Ja". 
+
+#### Sensibilität für Suche
+     
+Ist die unscharfe Suche aktiviert, können Sie hier einstellen, wie sensibel sie regiert. Werte zwischen 0 und 1 sind erlaubt, wobei niedrigere Werte unschärfere Ergebnisse zulassen.
 
 ### Suchvorschlags-Box
 
@@ -390,6 +438,10 @@ Hier geht es um den Link, der hinter den angezeigten Kategorien steht. Die Optio
 
 Hier können Sie beliebig viele Attribute eintragen, die in der Suchvorschau mit den am häufigsten vorkommenden Optionen dargestellt werden. Sie können jeweils das Attribut auswählen und die Anzahl der angezeigten Optionen definieren. Außerdem können Sie die Reihenfolge der Attribute bestimmen - das Attribut mit dem kleinsten Wert bei "Sortierung" wird zuoberst angezeigt.
 Es stehen nur Attribute zur Auswahl, die die Eigenschaft "Filternavigation auf Suchergebnisseiten verwenden" haben.
+
+#### Produkte anzeigen, die nicht auf Lager sind
+
+Als Standardeinstellung werden ausschließlich Produkte, die auf Lager sind, in den Suchvorschlägen angezeigt. Um auch ausverkaufte Produkte in der Suchvorschlagsbox anzuzeigen, wählen Sie "Ja".
 
 ### SEO
 

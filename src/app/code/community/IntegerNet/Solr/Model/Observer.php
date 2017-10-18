@@ -65,6 +65,10 @@ class IntegerNet_Solr_Model_Observer
      */
     public function coreBlockAbstractToHtmlBefore(Varien_Event_Observer $observer)
     {
+        if (!Mage::getStoreConfigFlag('integernet_solr/general/is_active')) {
+            return;
+        }
+
         $block = $observer->getBlock();
 
         // Add "Solr Priority" column to attribute grid

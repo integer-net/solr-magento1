@@ -27,6 +27,10 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
      */
     public function canShowBlock()
     {
+        if (!Mage::helper('integernet_solr')->module()->isActive()) {
+            return false;
+        }
+
         switch ($this->getNameInLayout()) {
             case 'catalogsearch.solr.leftnav':
                 return Mage::getStoreConfig('integernet_solr/results/filter_position') == CategoryConfig::FILTER_POSITION_LEFT;

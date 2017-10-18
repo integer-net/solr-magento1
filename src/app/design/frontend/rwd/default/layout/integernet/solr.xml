@@ -161,10 +161,10 @@
     <integernet_solr_result_index>
         <update handle="catalogsearch_result_index"/>
         <reference name="root">
-            <action method="setTemplate">
+            <action ifconfig="integernet_solr/general/is_active" method="setTemplate">
                 <name>integernet/solr/ajax/json.phtml</name>
             </action>
-            <block type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
+            <block ifconfig="integernet_solr/general/is_active" type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
         </reference>
         
         <remove name="right" />
@@ -175,7 +175,7 @@
     <integernet_solr_category_view>
         <update handle="catalog_category_view"/>
         <reference name="root">
-            <block type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
+            <block ifconfig="integernet_solr/general/is_active" type="integernet_solr/result_layer_ajax" name="solr.json" as="json" />
         </reference>
         
         <remove name="right" />

@@ -41,7 +41,7 @@
                 <block type="integernet_solr/result_layer_state" name="catalogsearch.solr.topnav.layer.state" as="state" template="integernet/solr/layer/top/state.phtml"/>
                 <block type="integernet_solr/result_layer_filter" name="catalogsearch.solr.topnav.layer.filter" as="filter" template="integernet/solr/layer/top/filter.phtml"/>
             </block>
-            <block type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader"/>
+            <block ifconfig="integernet_solr/general/is_active" type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader"/>
         </reference>
     </catalogsearch_result_index>
 

@@ -52,7 +52,7 @@
                 <block type="integernet_solr/result_layer_renderers" name="catalogsearch.solr.topnav.layer.renderers"
                        as="state_renderers"/>
             </block>
-            <block type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader" after="-"/>
+            <block ifconfig="integernet_solr/general/is_active" type="core/template" template="integernet/solr/loader.phtml" name="solr.loader" as="solr.loader" after="-"/>
         </reference>
     </catalogsearch_result_index>
 

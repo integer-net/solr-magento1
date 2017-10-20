@@ -40,7 +40,7 @@ class IntegerNet_Solr_Test_Config_Config extends EcomDev_PHPUnit_Test_Case_Confi
      */
     public function translationConfig()
     {
-        $this->assertConfigNodeValue('adminhtml/translate/modules/integernet_solr/files/default', 'IntegerNet_Solr.csv');
+        $this->assertConfigNodeValue('adminhtml/translate/modules/IntegerNet_Solr/files/default', 'IntegerNet_Solr.csv');
     }
 
     /**

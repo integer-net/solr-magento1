@@ -107,3 +107,5 @@
 "0 = don't show at all, 1 = don't modify, anything between = lower priority","0 = gar nicht anzeigen, 1 = wie Produkte auf Lager, alles dazwischen = niedrigere Priorität"
 "Disconnect and reconnect MySQL Connections during indexing","MySQL-Verbindungen während der Indizierung trennen und neu aufbauen"
 "Use this to avoid SQL timeout errors during indexing. Only available since Magento CE 1.9.1 / EE 1.14.1.","Aktivieren Sie diese Option, wenn Sie Timeout-Fehler während der Indizierung erhalten. Verfügbar erst ab Magento CE 1.9.1 / EE 1.14.1."
+"Learn More","Mehr erfahren"
+"View Details","Details"

@@ -143,11 +143,11 @@
     <adminhtml>
         <translate>
             <modules>
-                <integernet_solr>
+                <IntegerNet_Solr>
                     <files>
                         <default>IntegerNet_Solr.csv</default>
                     </files>
-                </integernet_solr>
+                </IntegerNet_Solr>
             </modules>
         </translate>
 

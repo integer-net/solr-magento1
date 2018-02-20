@@ -2,6 +2,12 @@ IntegerNet_Solr Free for Magento 1
 ===============
 Release Notes
 
+Upcoming
+--------------
+
+- Fix (unfuzzy) search request if fuzzy is activated and thus improve exact search results
+- Fix small bug with excluding filters on category pages (thanks Sven Härtwig!)
+
 Version 1.7.6 (Aug 16, 2017)
 ---------------
 

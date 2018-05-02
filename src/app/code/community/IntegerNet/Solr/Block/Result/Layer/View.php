@@ -94,7 +94,11 @@ class IntegerNet_Solr_Block_Result_Layer_View extends Mage_Core_Block_Template
                 if ($currentCategory) {
                     $removedFilterAttributeCodes = $currentCategory->getData('solr_remove_filters');
 
-                    if (is_array($removedFilterAttributeCodes) && in_array($attribute->getAttributeCode(), $removedFilterAttributeCodes)) {
+                    if (!is_array($removedFilterAttributeCodes)) {
+                        $removedFilterAttributeCodes = explode(',', $removedFilterAttributeCodes);
+                    }
+
+                    if (in_array($attribute->getAttributeCode(), $removedFilterAttributeCodes)) {
                         continue;
                     }
                 }

@@ -7,7 +7,7 @@ services:
 build:
   steps:
     - install-packages:
-        packages: git zip mysql-client libmcrypt-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev netcat-openbsd
+        packages: git zip mysql-client libmcrypt-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev netcat-openbsd
     - script:
         name: install php extensions
         code: docker-php-ext-install -j$(nproc) pdo_mysql mcrypt gd pcntl

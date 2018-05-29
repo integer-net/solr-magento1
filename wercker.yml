@@ -28,7 +28,7 @@ build:
           set -x
           echo memory_limit=-1 >> /usr/local/etc/php/php.ini
           export WORKSPACE=`pwd`
-          export MAGENTO_VERSION=magento-mirror-1.9.2.2
+          export MAGENTO_VERSION=magento-mirror-1.9.3.8
           export MAGENTO_DB_HOST=$MYSQL_PORT_3306_TCP_ADDR
           export MAGENTO_DB_PORT=$MYSQL_PORT_3306_TCP_PORT
           export MAGENTO_DB_USER=root

@@ -93,7 +93,7 @@ class IntegerNet_Solr_Model_Bridge_Product implements Product
     public function getSearchableAttributeValue(Attribute $attribute)
     {
         $magentoAttribute = Mage::getModel('integernet_solr/bridge_factory')->getAttributeRepository()->getMagentoAttribute($attribute);
-        $value = trim(strip_tags($magentoAttribute->getFrontend()->getValue($this->_product)));
+        $value = trim($this->filterHtml($magentoAttribute->getFrontend()->getValue($this->_product)));
         $attributeCode = $attribute->getAttributeCode();
         if ($magentoAttribute->getData('backend_type') == 'int'
             && $magentoAttribute->getData('frontend_input') == 'select' 
@@ -168,5 +168,17 @@ class IntegerNet_Solr_Model_Bridge_Product implements Product
         }
 
         return $this->_product->getStockItem()->getIsInStock();
+    }
+
+    /**
+     * Remove script tags (including its content) and other tags (keeping their content)
+     *
+     * @param string $html
+     * @return string
+     */
+    private function filterHtml($html)
+    {
+        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+        return strip_tags($html);
     }
 }

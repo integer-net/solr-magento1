@@ -66,16 +66,17 @@ class IntegerNet_Solr_Model_Bridge_Category implements Category, SuggestCategory
     {
         if (is_null($this->_description)) {
             $this->_description = $this->_category->getDescription();
-        switch ($this->_category->getDisplayMode()) {
-            case Mage_Catalog_Model_Category::DM_PAGE:
-            case Mage_Catalog_Model_Category::DM_MIXED:
-                if ($blockId = $this->_category->getLandingPage()) {
-                    $block = Mage::getModel('cms/block')->load($blockId);
-                    if ($block->getId() && $block->getIsActive()) {
-                            $this->_description .= ' ' . Mage::helper('cms')->getPageTemplateProcessor()->filter($block->getContent());
+            switch ($this->_category->getDisplayMode()) {
+                case Mage_Catalog_Model_Category::DM_PAGE:
+                case Mage_Catalog_Model_Category::DM_MIXED:
+                    if ($blockId = $this->_category->getLandingPage()) {
+                        $block = Mage::getModel('cms/block')->load($blockId);
+                        if ($block->getId() && $block->getIsActive()) {
+                                $this->_description .= ' ' . Mage::helper('cms')->getPageTemplateProcessor()->filter($block->getContent());
+                        }
                     }
-                }
-        }
+            }
+            $this->_description = $this->filterHtml($this->_description);
         }
         return $this->_description;
     }
@@ -83,7 +84,7 @@ class IntegerNet_Solr_Model_Bridge_Category implements Category, SuggestCategory
     public function getAbstract()
     {
         $content = preg_replace(array('/\s{2,}/', '/[\t\n]+/'), ' ', $this->getDescription());
-        $content = trim(strip_tags(html_entity_decode($content)));
+        $content = trim($this->filterHtml(html_entity_decode($content)));
         if (strlen($content) > self::ABSTRACT_MAX_LENGTH) {
             $content = substr($content, 0, self::ABSTRACT_MAX_LENGTH) . '&hellip;';
         }
@@ -176,5 +177,17 @@ class IntegerNet_Solr_Model_Bridge_Category implements Category, SuggestCategory
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_category, $method), $args);
+    }
+
+    /**
+     * Remove script tags (including its content) and other tags (keeping their content)
+     *
+     * @param string $html
+     * @return string
+     */
+    private function filterHtml($html)
+    {
+        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+        return strip_tags($html);
     }
 }

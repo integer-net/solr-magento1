@@ -59,14 +59,14 @@ class IntegerNet_Solr_Model_Bridge_Page implements Page
     public function getContent()
     {
         if (is_null($this->_content)) {
-            $this->_content = Mage::helper('cms')->getPageTemplateProcessor()->filter($this->_page->getData('content'));
+            $this->_content = $this->filterHtml(Mage::helper('cms')->getPageTemplateProcessor()->filter($this->_page->getData('content')));
         }
         return $this->_content;
     }
 
     public function getAbstract()
     {
-        $content = trim(strip_tags(html_entity_decode(str_replace(array("\r", "\n", "\t"), ' ', $this->getContent()))));
+        $content = trim($this->filterHtml(html_entity_decode(str_replace(array("\r", "\n", "\t"), ' ', $this->getContent()))));
         if (strlen($content) > self::ABSTRACT_MAX_LENGTH) {
             $content = substr($content, 0, self::ABSTRACT_MAX_LENGTH) . '&hellip;';
         }
@@ -129,5 +129,17 @@ class IntegerNet_Solr_Model_Bridge_Page implements Page
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_page, $method), $args);
+    }
+
+    /**
+     * Remove script tags (including its content) and other tags (keeping their content)
+     *
+     * @param string $html
+     * @return string
+     */
+    private function filterHtml($html)
+    {
+        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+        return strip_tags($html);
     }
 }

@@ -42,5 +42,6 @@ build:
           curl -sSL https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | php -- --quiet
           cp $(grep -o "/tmp/tmp.*" ~/.ssh/config) ~/.ssh/id_rsa
           chmod 0600 ~/.ssh/id_rsa
+          php composer.phar install --no-interaction --prefer-source -vvv
           php composer.phar require aoepeople/composer-installers:* --no-interaction -vvv
           curl -sSL https://raw.githubusercontent.com/schmengler/MageTestStand/master/setup.sh | bash

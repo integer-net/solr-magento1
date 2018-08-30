@@ -152,9 +152,9 @@
 
     <uniqueKey>id</uniqueKey>
 
-    <defaultSearchField>text</defaultSearchField>
+    <df>text</df>
 
-    <solrQueryParser defaultOperator="AND"/>
+    <solrQueryParser q.op="AND"/>
 
     <copyField source="*_t" dest="text"/>
     <copyField source="*_s" dest="text"/>

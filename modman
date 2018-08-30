@@ -8,6 +8,7 @@ src/app/design/frontend/rwd/default/layout/integernet/solr.xml      app/design/f
 src/app/design/frontend/rwd/default/layout/integernet/solr/*        app/design/frontend/rwd/default/layout/integernet/solr/
 src/app/design/frontend/rwd/default/template/integernet/solr/*      app/design/frontend/rwd/default/template/integernet/solr/
 src/app/etc/modules/*                                               app/etc/modules/
+src/app/locale/de_CH/IntegerNet_Solr.csv                            app/locale/de_CH/IntegerNet_Solr.csv
 src/app/locale/de_DE/IntegerNet_Solr.csv                            app/locale/de_DE/IntegerNet_Solr.csv
 src/shell/integernet-solr.php                                       shell/integernet-solr.php
 src/skin/frontend/base/default/integernet/solr/css/*                skin/frontend/base/default/integernet/solr/css/

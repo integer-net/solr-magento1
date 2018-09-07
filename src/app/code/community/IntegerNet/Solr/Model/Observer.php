@@ -340,7 +340,7 @@ class IntegerNet_Solr_Model_Observer
             return;
         }
 
-        if (Mage::helper('catalog/category_flat')->isEnabled() && !$category->getResource() instanceof Mage_Catalog_Model_Resource_Category_Flat) {
+        if (!Mage::helper('catalog/category_flat')->isEnabled() || !$category->getResource() instanceof Mage_Catalog_Model_Resource_Category_Flat) {
             return;
         }
 

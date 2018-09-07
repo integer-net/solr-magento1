@@ -21,10 +21,6 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@github.com:schmengler/Aoe_LayoutConditions.git"
-    },
-    {
-      "type": "vcs",
       "url": "git@github.com:integer-net/solr-base.git"
     },
     {

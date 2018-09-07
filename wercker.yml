@@ -12,6 +12,9 @@ build:
         name: install php extensions
         code: docker-php-ext-install -j$(nproc) pdo_mysql mcrypt gd pcntl
     - script:
+        name: install composer
+        code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+    - script:
         name: "Wait for MySQL connection"
         code: |
           while ! nc -q 1 $MYSQL_PORT_3306_TCP_ADDR $MYSQL_PORT_3306_TCP_PORT </dev/null; do echo -n . && sleep 3; done
@@ -28,7 +31,7 @@ build:
           set -x
           echo memory_limit=-1 >> /usr/local/etc/php/php.ini
           export WORKSPACE=`pwd`
-          export MAGENTO_VERSION=magento-mirror-1.9.2.2
+          export MAGENTO_VERSION=magento-mirror-1.9.3.8
           export MAGENTO_DB_HOST=$MYSQL_PORT_3306_TCP_ADDR
           export MAGENTO_DB_PORT=$MYSQL_PORT_3306_TCP_PORT
           export MAGENTO_DB_USER=root
@@ -37,9 +40,9 @@ build:
           export MAGENTO_DB_ALLOWSAME=0
           export MAGENTO_INSTALL_SAMPLE_DATA=no
           export ECOMDEV_PHPUNIT_CUSTOM_BOOTSTRAP=IntegerNet/Solr/Test/bootstrap.php
+          export COMPOSER_ALLOW_SUPERUSER=1
           sed -i -e "s/8983/$SOLR_CI_PORT_8983_TCP_PORT/g" src/app/code/community/IntegerNet/Solr/Test/fixtures/config.yaml
           sed -i -e "s/localhost/$SOLR_CI_PORT_8983_TCP_ADDR/g" src/app/code/community/IntegerNet/Solr/Test/fixtures/config.yaml
-          curl -sSL https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | php -- --quiet
-          php composer.phar require aoepeople/composer-installers:*
-          php composer.phar install --dev --no-interaction
+          composer require aoepeople/composer-installers:* --no-progress --no-interaction
+          composer install --no-interaction --no-progress
           curl -sSL https://raw.githubusercontent.com/schmengler/MageTestStand/master/setup.sh | bash

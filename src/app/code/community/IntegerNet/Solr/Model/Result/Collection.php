@@ -147,7 +147,7 @@ class IntegerNet_Solr_Model_Result_Collection extends Varien_Data_Collection
     /**
      * Retrieve item id
      *
-     * @param Varien_Object $item
+     * @param $item
      * @return mixed
      */
     protected function _getItemId($item)

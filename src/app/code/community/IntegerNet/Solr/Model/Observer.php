@@ -330,4 +330,28 @@ class IntegerNet_Solr_Model_Observer
 
         Mage::helper('integernet_solr')->factory()->getProductIndexer()->reindex($productIds);
     }
+
+    public function afterFlatCategoryLoadedUseBackendModel(Varien_Event_Observer $observer)
+    {
+        if (!Mage::getStoreConfigFlag('integernet_solr/general/is_active')) {
+            return;
+        }
+
+        /** @var Mage_Catalog_Model_Category $category */
+        $category = $observer->getCategory();
+
+        if (!$category || !$category->getId()) {
+            return;
+        }
+
+        if (!Mage::helper('catalog/category_flat')->isEnabled() || !$category->getResource() instanceof Mage_Catalog_Model_Resource_Category_Flat) {
+            return;
+        }
+
+        $filtersToRemove = $category->getData('solr_remove_filters');
+
+        if ($filtersToRemove && !is_array($filtersToRemove)) {
+            $category->setData('solr_remove_filters', explode(',', $filtersToRemove));
+        }
+    }
 }

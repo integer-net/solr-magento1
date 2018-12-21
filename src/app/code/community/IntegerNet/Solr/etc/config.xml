@@ -230,6 +230,15 @@
                     </review>
                 </observers>
             </catalog_block_product_list_collection>
+            <catalog_category_load_after>
+                <observers>
+                    <integernet_solr>
+                        <type>singleton</type>
+                        <class>integernet_solr/observer</class>
+                        <method>afterFlatCategoryLoadedUseBackendModel</method>
+                    </integernet_solr>
+                </observers>
+            </catalog_category_load_after>
         </events>
     </frontend>
 

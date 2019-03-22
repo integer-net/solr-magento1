@@ -143,4 +143,18 @@ class IntegerNet_Solr_Model_Result_Collection extends Varien_Data_Collection
 
     public function getLoadedIds ()
     {}
+
+    /**
+     * Retrieve item id
+     *
+     * @param $item
+     * @return mixed
+     */
+    protected function _getItemId($item)
+    {
+        if($item instanceof Apache_Solr_Document){
+            return $item->getField('product_id')['value'];
+        }
+        return parent::_getItemId($item);
+    }
 }

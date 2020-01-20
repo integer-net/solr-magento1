@@ -216,6 +216,7 @@ class IntegerNet_Solr_Model_Observer
         $matchingProductCollection
             ->addStoreFilter()
             ->addWebsiteFilter()
+            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
             ->addAttributeToFilter($filters)
             ->addAttributeToSelect(array('status', 'visibility', 'url_key'))
             ->setOrder('visibility', 'desc');
@@ -302,6 +303,7 @@ class IntegerNet_Solr_Model_Observer
         $parentProductCollection
             ->addStoreFilter()
             ->addWebsiteFilter()
+            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
             ->addIdFilter($parentProductIds)
             ->addAttributeToSelect(array('status', 'visibility', 'url_key'));
 

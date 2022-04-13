@@ -76,10 +76,17 @@ class IntegerNet_Solr_Block_Result_List extends Mage_Catalog_Block_Product_List
         // called prepare sortable parameters
         $collection = $this->_getProductCollection();
 
-        // use sortable parameters
-        if ($orders = $this->getAvailableOrders()) {
+        // use sortable parameters depending on category settings if available
+        if (Mage::helper('integernet_solr')->page()->isCategoryPage()
+            && $category = Mage::registry('current_category')) {
+            $orders = $category->getAvailableSortByOptions();
+        } else {
+            $orders = $this->getAvailableOrders();
+        }
+        if ($orders) {
             $toolbar->setAvailableOrders($orders);
         }
+
         if ($sort = $this->getSortBy()) {
             $toolbar->setDefaultOrder($sort);
         }
